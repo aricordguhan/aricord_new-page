@@ -182,7 +182,7 @@ p:last-child { margin-bottom: 0; }
 
 .about-grid-solo { grid-template-columns: 1fr; max-width: 760px; }
 
-.team-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 22px; }
+.team-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 22px; width: 95%; margin: 0 auto; }
 .team-grid > .team-card { grid-column: span 2; }
 /* 3 cards on the first row, remaining 2 centred on the next */
 .team-grid > .team-card:nth-child(4):nth-last-child(2) { grid-column: 2 / span 2; }

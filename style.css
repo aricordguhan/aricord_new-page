@@ -15,7 +15,7 @@
   --shadow-sm: 0 6px 16px rgba(10, 46, 107, 0.08);
   --shadow-md: 0 16px 36px rgba(10, 46, 107, 0.12);
 
-  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-display: "Poppins", -apple-system, "Segoe UI", sans-serif;
   --font-body: "Inter", -apple-system, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", "Courier New", monospace;
 
@@ -127,6 +127,13 @@ p:last-child { margin-bottom: 0; }
   color: var(--brass); font-weight: 600; margin: 0 0 18px;
 }
 .hero h1 { font-size: clamp(2.1rem, 4vw, 3.2rem); color: var(--white); margin-bottom: 22px; }
+/* Looping typewriter eyebrow: invisible sizer reserves width of the longest phrase so layout doesn't jump */
+.type-loop { display: inline-grid; vertical-align: bottom; }
+.type-loop-sizer, .type-loop-text { grid-area: 1 / 1; white-space: nowrap; }
+.type-loop-sizer { visibility: hidden; }
+.type-loop-text::after { content: ""; display: inline-block; width: 2px; height: 1em; margin-left: 3px; vertical-align: -0.12em; background: var(--brass); animation: type-caret 0.9s steps(1) infinite; }
+@keyframes type-caret { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .type-loop-text::after { display: none; } }
 .hero-sub { color: #B9C2D6; font-size: 17px; max-width: 46ch; margin-bottom: 34px; }
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
 .hero .btn-ghost { border-color: rgba(255,255,255,0.35); color: var(--white); }
@@ -141,6 +148,28 @@ p:last-child { margin-bottom: 0; }
   background: transparent;
 }
 @media (max-width: 960px) { .hero-visual { max-width: 520px; } }
+
+/* ARICORD wordmark + typed tagline inside .hero-visual — transparent over the dark hero */
+.hero-visual:has(.arc-hero) { padding: 0; background: transparent; border: 0; }
+.arc-hero {
+  position: relative; width: 100%; min-height: 480px; display: flex; align-items: center; justify-content: center;
+  background: transparent; font-family: var(--font-display);
+}
+.arc-inner { display: inline-block; }
+.arc-title {
+  margin: 0; color: #fff; font-weight: 700; font-size: clamp(48px, 6vw, 88px); letter-spacing: .02em; line-height: 1;
+  opacity: 0; animation: arcFade 1s ease forwards;
+}
+.arc-tagline { margin: 10px 0 0; color: #DCE7F7; font-weight: 400; font-size: clamp(16px, 1.9vw, 26px); white-space: nowrap; min-height: 1.3em; }
+.arc-cursor { display: inline-block; width: 2px; height: 1em; background: #9CC4FF; margin-left: 4px; vertical-align: -0.12em; animation: arcBlink .8s steps(1) infinite; }
+@keyframes arcFade { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: none; } }
+@keyframes arcBlink { 50% { opacity: 0; } }
+@media (max-width: 768px) { .arc-hero { min-height: 260px; } .arc-tagline { white-space: normal; } }
+@media (prefers-reduced-motion: reduce) {
+  .arc-title { animation: none; opacity: 1; }
+  .arc-cursor { display: none; }
+}
+
 
 .ledger-card {
   background: var(--ink-soft); border: 1px solid var(--line-dark); border-radius: 14px;
@@ -195,12 +224,13 @@ p:last-child { margin-bottom: 0; }
 .team-card:hover { border-color: var(--brass); transform: translateY(-3px); box-shadow: var(--shadow-md); }
 
 .team-photo {
-  width: calc(100% + 44px); margin: 0 -22px 18px; aspect-ratio: 1 / 1;
+  width: calc(100% + 44px); margin: 0 -22px 18px; aspect-ratio: 4 / 5;
   display: flex; align-items: center; justify-content: center; overflow: hidden;
 }
 .team-photo svg { width: 58%; height: 58%; fill: rgba(255,255,255,0.9); }
 .team-photo svg path { fill: none; stroke: rgba(255,255,255,0.9); stroke-width: 6; }
-.team-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; background: #fff; }
+/* Taller frame + crop below the top white space so head and shoulders both show */
+.team-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; background: #fff; }
 .team-photo-1 { background: linear-gradient(155deg, #0A2E6B, #1D6FEB); }
 .team-photo-2 { background: linear-gradient(155deg, #123A82, #5B9CFB); }
 .team-photo-3 { background: linear-gradient(155deg, #14275C, #2563C7); }

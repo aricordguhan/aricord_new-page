@@ -8,7 +8,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%23FFFFFF%22/><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22%230A2E6B%22/><circle cx=%2250%22 cy=%2250%22 r=%2231%22 fill=%22none%22 stroke=%22%23FFFFFF%22 stroke-width=%225%22/><path d=%22M35 62 L50 32 L65 62%22 fill=%22none%22 stroke=%22%23FFFFFF%22 stroke-width=%228%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -50,18 +50,26 @@
   <section class="hero" id="top">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow">SAP Partner — Finance &amp; Regulatory Reporting</p>
-        <h1>SAP finance, delivered by people who've closed the books themselves.</h1>
-        <p class="hero-sub">Aricord partners with finance and technology teams on S/4HANA, Central Finance, SAP BTP and regulatory reporting programmes — from business case through to post&#8209;go&#8209;live stabilisation.</p>
+        <p class="eyebrow" aria-label="SAP Finance · Specialist by design">SAP FINANCE · <span class="type-loop" aria-hidden="true" data-phrases="SPECIALIST BY DESIGN|BUILT ON EXPERIENCE|FOCUSED ON OUTCOMES">
+            <span class="type-loop-sizer">SPECIALIST BY DESIGN</span>
+            <span class="type-loop-text">SPECIALIST BY DESIGN</span>
+          </span></p>
+        <h1>Complex finance deserves more than a standard solution.</h1>
+        <p class="hero-sub">Aricord brings specialist finance and SAP expertise to complex transformation programmes across S/4HANA, Central Finance, regulatory solutions, BTP and AI.</p>
         <div class="hero-actions">
-          <a href="#contact" class="btn btn-primary">Book a conversation</a>
-          <a href="#offerings" class="btn btn-ghost">See our offerings</a>
+          <a href="#contact" class="btn btn-primary">Talk to an expert</a>
+          <a href="#offerings" class="btn btn-ghost">See how we work</a>
         </div>
       </div>
 
-      <!-- <figure class="hero-visual">
-        <img src="assets/pngwing.com.png" alt="Finance reporting illustration: dashboard, charts, calculator and currency" width="740" height="640" loading="eager">
-      </figure> -->
+      <figure class="hero-visual">
+        <div class="arc-hero">
+          <div class="arc-inner">
+            <p class="arc-title">ARICORD</p>
+            <p class="arc-tagline" aria-label="Where complexity gets clarity."><span class="arc-type" aria-hidden="true" data-text="Where complexity gets clarity.">Where complexity gets clarity.</span><span class="arc-cursor" aria-hidden="true"></span></p>
+          </div>
+        </div>
+      </figure>
 
       <!-- <aside class="ledger-card" aria-label="Firm summary">
         <p class="ledger-title">Statement — Aricord Consulting</p>
@@ -132,19 +140,19 @@ We keep things practical, stay close to our clients, and focus on solutions that
   <section class="section section-alt" id="team">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">Meet the Team</p>
-        <h2>The people behind the engagements.</h2>
-        <p class="section-sub">The "goal" lines below are placeholders for Rishab, Manjula and Kalai — swap in each person's own line before publishing.</p>
+        <p class="eyebrow">OUR TEAM</p>
+        <h2>Expertise starts with the right people.</h2>
+        <!-- <p class="section-sub">The "goal" lines below are placeholders for Rishab, Manjula and Kalai — swap in each person's own line before publishing.</p> -->
       </div>
 
       <ul class="team-grid" aria-label="Leadership team">
         <li class="team-card">
           <div class="team-photo team-photo-1">
-            <img src="assets/team/rishab-bucha.jpg" alt="Rishab Bucha">
+            <img class="team-photo-fit" src="assets\team\rishab-bucha.png" alt="Rishab Bucha">
           </div>
           <p class="team-name">Rishab Bucha</p>
-          <p class="team-role">Founder</p>
-          <p class="team-goal">“Scaling Aricord into the go-to boutique for SAP finance transformation.”</p>
+          <p class="team-role">Founder & Managing Director</p>
+          <!-- <p class="team-goal">“Scaling Aricord into the go-to boutique for SAP finance transformation.”</p> -->
           <a href="https://www.linkedin.com/in/rishab-bucha-9b880a14/" target="_blank" rel="noopener">LinkedIn ↗</a>
         </li>
         <!-- <li class="team-card">
@@ -161,8 +169,8 @@ We keep things practical, stay close to our clients, and focus on solutions that
             <img src="assets\team\manjula-pasala.png" alt="Manjula Pasala">
           </div>
           <p class="team-name">Manjula Pasala</p>
-          <p class="team-role">Business Development Lead — SAP</p>
-          <p class="team-goal">“Matching the right SAP finance capability to the right client, early.”</p>
+          <p class="team-role">Business Development & Partnerships</p>
+          <!-- <p class="team-goal">“Matching the right SAP finance capability to the right client, early.”</p> -->
           <a href="https://www.linkedin.com/in/manjulapasala/" target="_blank" rel="noopener">LinkedIn ↗</a>
         </li>
         <li class="team-card">
@@ -170,8 +178,8 @@ We keep things practical, stay close to our clients, and focus on solutions that
             <img src="assets\team\kalai-vani.png" alt="Kalai Vani">
           </div>
           <p class="team-name">Kalai Vani</p>
-          <p class="team-role">India Operations Lead &amp; FI Consultant</p>
-          <p class="team-goal">“Keeping India delivery predictable enough that clients stop thinking about time zones.”</p>
+          <p class="team-role">SAP Finance & Operations Lead</p>
+          <!-- <p class="team-goal">“Keeping India delivery predictable enough that clients stop thinking about time zones.”</p> -->
           <a href="https://www.linkedin.com/in/kalaivani-elanchezian-b719051a/" target="_blank" rel="noopener">LinkedIn ↗</a>
         </li>
         <!-- <li class="team-card">
@@ -197,8 +205,8 @@ We keep things practical, stay close to our clients, and focus on solutions that
             <img src="assets\team\agilan-s.png" alt="Agilan S">
           </div>
           <p class="team-name">Agilan S</p>
-          <p class="team-role">Aricord team member</p>
-          <p class="team-goal">Connect with Agilan and learn more about his experience on LinkedIn.</p>
+          <p class="team-role">SAP solution lead </p>
+          <!-- <p class="team-goal">Connect with Agilan and learn more about his experience on LinkedIn.</p> -->
           <a href="https://www.linkedin.com/in/agilan-s-149822292/" target="_blank" rel="noopener">LinkedIn ↗</a>
         </li>
         <li class="team-card">
@@ -206,8 +214,8 @@ We keep things practical, stay close to our clients, and focus on solutions that
             <img src="assets/team/vignesh-k.jpg" alt="Vignesh K">
           </div>
           <p class="team-name">Vignesh K</p>
-          <p class="team-role">Aricord team member</p>
-          <p class="team-goal">Connect with Vignesh and learn more about his experience on LinkedIn.</p>
+          <p class="team-role">SAP Delivery Lead</p>
+          <!-- <p class="team-goal">Connect with Vignesh and learn more about his experience on LinkedIn.</p> -->
           <a href="https://www.linkedin.com/in/vignesh-k137" target="_blank" rel="noopener">LinkedIn ↗</a>
         </li>
         <!-- <li class="team-card">

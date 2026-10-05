@@ -146,3 +146,59 @@ document.querySelectorAll('.news-row').forEach((row) => {
   window.addEventListener('resize', updateArrows);
   updateArrows();
 });
+
+// Hero eyebrow: looping typewriter effect cycling through phrases
+document.addEventListener('DOMContentLoaded', () => {
+  const wrap = document.querySelector('.type-loop');
+  const el = wrap && wrap.querySelector('.type-loop-text');
+  if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const phrases = (wrap.dataset.phrases || el.textContent.trim()).split('|');
+  // Size the reserved space to the longest phrase
+  wrap.querySelector('.type-loop-sizer').textContent = phrases.reduce((a, b) => (b.length > a.length ? b : a));
+
+  let p = 0;
+  let i = 0;
+  let deleting = false;
+  el.textContent = '';
+
+  const tick = () => {
+    const text = phrases[p];
+    i += deleting ? -1 : 1;
+    el.textContent = text.slice(0, i);
+
+    let delay = deleting ? 40 : 70;
+    if (!deleting && i === text.length) {
+      // Finished typing: hold the phrase, then backspace it
+      deleting = true;
+      delay = 2000;
+    } else if (deleting && i === 0) {
+      // Fully erased: move on to the next phrase
+      deleting = false;
+      p = (p + 1) % phrases.length;
+      delay = 350;
+    }
+    setTimeout(tick, delay);
+  };
+  setTimeout(tick, 400);
+});
+
+// Hero visual: ARICORD tagline typed in, held, then backspaced on a loop
+document.addEventListener('DOMContentLoaded', () => {
+  const el = document.querySelector('.arc-type');
+  if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const text = el.dataset.text || el.textContent.trim();
+  let i = 0;
+  let deleting = false;
+  el.textContent = '';
+
+  const tick = () => {
+    el.textContent = text.slice(0, i);
+    if (!deleting && i < text.length) { i += 1; setTimeout(tick, 80); }
+    else if (!deleting) { deleting = true; setTimeout(tick, 2500); }
+    else if (i > 0) { i -= 1; setTimeout(tick, 40); }
+    else { deleting = false; setTimeout(tick, 600); }
+  };
+  setTimeout(tick, 900);
+});

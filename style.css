@@ -127,9 +127,9 @@ p:last-child { margin-bottom: 0; }
   color: var(--brass); font-weight: 600; margin: 0 0 18px;
 }
 .hero h1 { font-size: clamp(2.1rem, 4vw, 3.2rem); color: var(--white); margin-bottom: 22px; }
-/* Looping typewriter eyebrow: invisible sizer reserves width of the longest phrase so layout doesn't jump */
-.type-loop { display: inline-grid; vertical-align: bottom; }
-.type-loop-sizer, .type-loop-text { grid-area: 1 / 1; white-space: nowrap; }
+/* Looping typewriter headline: invisible sizer reserves the full text's space so layout doesn't jump */
+.type-loop { display: grid; }
+.type-loop-sizer, .type-loop-text { grid-area: 1 / 1; }
 .type-loop-sizer { visibility: hidden; }
 .type-loop-text::after { content: ""; display: inline-block; width: 2px; height: 1em; margin-left: 3px; vertical-align: -0.12em; background: var(--brass); animation: type-caret 0.9s steps(1) infinite; }
 @keyframes type-caret { 50% { opacity: 0; } }
@@ -139,6 +139,7 @@ p:last-child { margin-bottom: 0; }
 .hero .btn-ghost { border-color: rgba(255,255,255,0.35); color: var(--white); }
 .hero .btn-ghost:hover { border-color: var(--brass); color: var(--brass-light); }
 
+/* Hero visual */
 .hero-visual {
   margin: 0; background: var(--ink-soft); border: 1px solid var(--line-dark); border-radius: 14px;
   padding: 24px; display: flex; align-items: center; justify-content: center;
@@ -148,23 +149,89 @@ p:last-child { margin-bottom: 0; }
   background: transparent;
 }
 @media (max-width: 960px) { .hero-visual { max-width: 520px; } }
-
-/* ARICORD wordmark + typed tagline inside .hero-visual — transparent over the dark hero */
 .hero-visual:has(.arc-hero) { padding: 0; background: transparent; border: 0; }
 .arc-hero {
   position: relative; width: 100%; min-height: 480px; display: flex; align-items: center; justify-content: center;
   background: transparent; font-family: var(--font-display);
 }
+.arc-hero .arc-title { font-size: clamp(48px, 6vw, 88px); }
+.arc-hero .arc-tagline { font-size: clamp(16px, 1.9vw, 26px); }
+@media (max-width: 768px) { .arc-hero { min-height: 260px; } }
+
+/* Animated Aricord logo inside .hero-visual: dotted gradient, pulsing glow, drawn logo, sparkles, streaks */
+.hero-visual:has(.arc-box) { padding: 0; background: transparent; border: 0; width: 100%; }
+.arc-box {
+  position: relative; width: 100%; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  overflow: hidden; background: transparent; /* sits directly on the hero's own gradient */
+}
+.arc-dots {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,.15) 1px, transparent 1.5px); background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(circle at center, transparent 20%, #000 80%); mask-image: radial-gradient(circle at center, transparent 20%, #000 80%);
+}
+.arc-glow {
+  position: absolute; width: 420px; height: 420px; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.28) 0%, rgba(255,255,255,.08) 45%, transparent 70%); filter: blur(18px);
+  animation: arcGlow 4s ease-in-out infinite;
+}
+@keyframes arcGlow { 0%, 100% { opacity: .4; transform: translate(-50%, -50%) scale(.9); } 30% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); } }
+
+.arc-logo { position: relative; z-index: 2; width: 260px; height: 260px; filter: drop-shadow(0 0 30px rgba(255,255,255,.35)); animation: arcIn 1s ease both, arcFloat 6s 1s ease-in-out infinite; }
+@keyframes arcIn { from { opacity: 0; transform: scale(.7); } to { opacity: 1; transform: scale(1); } }
+@keyframes arcFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+.arc-chev { stroke-dasharray: 260; stroke-dashoffset: 260; animation: arcDraw 1.2s .6s ease forwards; }
+@keyframes arcDraw { to { stroke-dashoffset: 0; } }
+.arc-shine { animation: arcShine 4s ease-in-out infinite; }
+@keyframes arcShine { 0% { transform: translateX(-260px); } 45%, 100% { transform: translateX(260px); } }
+
+.arc-spark { position: absolute; width: 24px; height: 24px; opacity: 0; z-index: 3; animation: arcTwinkle 3s ease-in-out infinite; }
+.arc-spark path { fill: #fff; filter: drop-shadow(0 0 6px #fff); }
+.arc-p1 { top: 24%; left: 62%; }
+.arc-p2 { top: 32%; left: 30%; width: 16px; height: 16px; animation-delay: .7s; }
+.arc-p3 { top: 62%; left: 68%; width: 30px; height: 30px; animation-delay: 1.4s; }
+.arc-p4 { top: 68%; left: 28%; width: 18px; height: 18px; animation-delay: 2s; }
+.arc-p5 { top: 82%; left: 52%; width: 14px; height: 14px; animation-delay: .3s; }
+.arc-p6 { top: 14%; left: 44%; width: 12px; height: 12px; animation-delay: 2.4s; }
+@keyframes arcTwinkle { 0%, 100% { opacity: 0; transform: scale(.3) rotate(0); } 50% { opacity: 1; transform: scale(1) rotate(90deg); } }
+.arc-streak {
+  position: absolute; height: 2px; width: 150px; border-radius: 2px; transform: rotate(-30deg); opacity: 0;
+  background: linear-gradient(90deg, transparent, #fff); box-shadow: 0 0 8px #fff; animation: arcShoot 4s linear infinite;
+}
+.arc-k1 { top: 22%; left: -10%; }
+.arc-k2 { top: 78%; left: -15%; animation-delay: 1.8s; width: 110px; }
+.arc-k3 { top: 50%; left: -20%; animation-delay: 3s; width: 90px; }
+@keyframes arcShoot { 0% { opacity: 0; transform: rotate(-30deg) translateX(0); } 10% { opacity: 1; } 55% { opacity: 0; transform: rotate(-30deg) translateX(700px); } 100% { opacity: 0; } }
+
+@media (max-width: 768px) {
+  .arc-box { min-height: 70vh; }
+  .arc-logo { width: 170px; height: 170px; }
+  .arc-glow { width: 280px; height: 280px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .arc-glow, .arc-logo, .arc-shine, .arc-spark, .arc-streak { animation: none; }
+  .arc-chev { animation: none; stroke-dashoffset: 0; }
+}
+
+/* Intro: full-screen ARICORD wordmark + typed tagline, fades out to reveal the page */
+.intro {
+  position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 0 16px;
+  background: linear-gradient(160deg, var(--ink) 0%, var(--ink-soft) 65%, #1651B8 100%); font-family: var(--font-display);
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+  animation: introFailsafe 0s 8s forwards; /* hides the overlay even if script.js never runs */
+}
+.intro.is-done { opacity: 0; visibility: hidden; }
+body.intro-active { overflow: hidden; }
+@keyframes introFailsafe { to { opacity: 0; visibility: hidden; } }
 .arc-inner { display: inline-block; }
 .arc-title {
-  margin: 0; color: #fff; font-weight: 700; font-size: clamp(48px, 6vw, 88px); letter-spacing: .02em; line-height: 1;
+  margin: 0; color: #fff; font-weight: 700; font-size: clamp(48px, 8vw, 104px); letter-spacing: .02em; line-height: 1;
   opacity: 0; animation: arcFade 1s ease forwards;
 }
-.arc-tagline { margin: 10px 0 0; color: #DCE7F7; font-weight: 400; font-size: clamp(16px, 1.9vw, 26px); white-space: nowrap; min-height: 1.3em; }
+.arc-tagline { margin: 10px 0 0; color: #DCE7F7; font-weight: 400; font-size: clamp(16px, 2.2vw, 28px); white-space: nowrap; min-height: 1.3em; }
 .arc-cursor { display: inline-block; width: 2px; height: 1em; background: #9CC4FF; margin-left: 4px; vertical-align: -0.12em; animation: arcBlink .8s steps(1) infinite; }
 @keyframes arcFade { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: none; } }
 @keyframes arcBlink { 50% { opacity: 0; } }
-@media (max-width: 768px) { .arc-hero { min-height: 260px; } .arc-tagline { white-space: normal; } }
+@media (max-width: 768px) { .arc-tagline { white-space: normal; } }
 @media (prefers-reduced-motion: reduce) {
   .arc-title { animation: none; opacity: 1; }
   .arc-cursor { display: none; }

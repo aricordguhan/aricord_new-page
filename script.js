@@ -147,7 +147,7 @@ document.querySelectorAll('.news-row').forEach((row) => {
   updateArrows();
 });
 
-// Hero eyebrow: looping typewriter effect cycling through phrases
+// Hero headline: looping typewriter effect (types, holds, backspaces; cycles if data-phrases lists several)
 document.addEventListener('DOMContentLoaded', () => {
   const wrap = document.querySelector('.type-loop');
   const el = wrap && wrap.querySelector('.type-loop-text');
@@ -180,25 +180,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     setTimeout(tick, delay);
   };
-  setTimeout(tick, 400);
+  // Wait for the intro overlay to fade out before starting to type
+  setTimeout(tick, document.getElementById('intro') ? 4500 : 400);
 });
 
-// Hero visual: ARICORD tagline typed in, held, then backspaced on a loop
+// Intro: ARICORD tagline typed in once, held, then the overlay fades out to reveal the page
 document.addEventListener('DOMContentLoaded', () => {
-  const el = document.querySelector('.arc-type');
-  if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const intro = document.getElementById('intro');
+  if (!intro) return;
+  const el = intro.querySelector('.arc-type');
+  document.body.classList.add('intro-active');
+
+  const finish = () => {
+    intro.classList.add('is-done');
+    document.body.classList.remove('intro-active');
+    setTimeout(() => intro.remove(), 700);
+  };
+
+  if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setTimeout(finish, 1200);
+    return;
+  }
 
   const text = el.dataset.text || el.textContent.trim();
   let i = 0;
-  let deleting = false;
   el.textContent = '';
 
   const tick = () => {
     el.textContent = text.slice(0, i);
-    if (!deleting && i < text.length) { i += 1; setTimeout(tick, 80); }
-    else if (!deleting) { deleting = true; setTimeout(tick, 2500); }
-    else if (i > 0) { i -= 1; setTimeout(tick, 40); }
-    else { deleting = false; setTimeout(tick, 600); }
+    if (i < text.length) { i += 1; setTimeout(tick, 70); }
+    else setTimeout(finish, 1000);
   };
-  setTimeout(tick, 900);
+  setTimeout(tick, 800);
 });

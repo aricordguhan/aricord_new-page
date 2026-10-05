@@ -13,6 +13,14 @@
 </head>
 <body>
 
+<!-- INTRO: ARICORD wordmark + typed tagline, shown on load then faded out to reveal the page -->
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="arc-inner">
+    <p class="arc-title">ARICORD</p>
+    <p class="arc-tagline"><span class="arc-type" data-text="Where complexity gets clarity.">Where complexity gets clarity.</span><span class="arc-cursor"></span></p>
+  </div>
+</div>
+
 <a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site-header" id="site-header">
@@ -50,11 +58,11 @@
   <section class="hero" id="top">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow" aria-label="SAP Finance · Specialist by design">SAP FINANCE · <span class="type-loop" aria-hidden="true" data-phrases="SPECIALIST BY DESIGN|BUILT ON EXPERIENCE|FOCUSED ON OUTCOMES">
-            <span class="type-loop-sizer">SPECIALIST BY DESIGN</span>
-            <span class="type-loop-text">SPECIALIST BY DESIGN</span>
-          </span></p>
-        <h1>Complex finance deserves more than a standard solution.</h1>
+        <p class="eyebrow">SAP FINANCE · BUILT ON EXPERIENCE</p>
+        <h1 aria-label="Complex finance deserves more than a standard solution."><span class="type-loop" aria-hidden="true">
+            <span class="type-loop-sizer">Complex finance deserves more than a standard solution.</span>
+            <span class="type-loop-text">Complex finance deserves more than a standard solution.</span>
+          </span></h1>
         <p class="hero-sub">Aricord brings specialist finance and SAP expertise to complex transformation programmes across S/4HANA, Central Finance, regulatory solutions, BTP and AI.</p>
         <div class="hero-actions">
           <a href="#contact" class="btn btn-primary">Talk to an expert</a>
@@ -62,12 +70,38 @@
         </div>
       </div>
 
+      <!-- Hero visual: animated Aricord logo -->
       <figure class="hero-visual">
-        <div class="arc-hero">
-          <div class="arc-inner">
-            <p class="arc-title">ARICORD</p>
-            <p class="arc-tagline" aria-label="Where complexity gets clarity."><span class="arc-type" aria-hidden="true" data-text="Where complexity gets clarity.">Where complexity gets clarity.</span><span class="arc-cursor" aria-hidden="true"></span></p>
-          </div>
+        <div class="arc-box">
+          <div class="arc-dots"></div>
+          <div class="arc-glow"></div>
+          <span class="arc-streak arc-k1"></span>
+          <span class="arc-streak arc-k2"></span>
+          <span class="arc-streak arc-k3"></span>
+
+          <svg class="arc-logo" viewBox="0 0 200 200" role="img" aria-label="Aricord logo">
+            <defs>
+              <clipPath id="arcClip"><circle cx="100" cy="100" r="100"/></clipPath>
+              <linearGradient id="arcShineGrad" x1="0" x2="1" y1="0" y2="0">
+                <stop offset="0" stop-color="#9CC4FF" stop-opacity="0"/>
+                <stop offset=".5" stop-color="#9CC4FF" stop-opacity=".45"/>
+                <stop offset="1" stop-color="#9CC4FF" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <circle cx="100" cy="100" r="100" fill="#fff"/>
+            <circle cx="100" cy="100" r="74" fill="none" stroke="#154C9E" stroke-width="6"/>
+            <path class="arc-chev" d="M56 136 L100 63 L144 136" fill="none" stroke="#154C9E" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            <g clip-path="url(#arcClip)">
+              <rect class="arc-shine" x="40" y="-60" width="70" height="320" fill="url(#arcShineGrad)" transform="rotate(20 100 100)"/>
+            </g>
+          </svg>
+
+          <svg class="arc-spark arc-p1" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10Z"/></svg>
+          <svg class="arc-spark arc-p2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10Z"/></svg>
+          <svg class="arc-spark arc-p3" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10Z"/></svg>
+          <svg class="arc-spark arc-p4" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10Z"/></svg>
+          <svg class="arc-spark arc-p5" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10Z"/></svg>
+          <svg class="arc-spark arc-p6" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10Z"/></svg>
         </div>
       </figure>
 

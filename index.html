@@ -8,7 +8,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%23FFFFFF%22/><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22%230A2E6B%22/><circle cx=%2250%22 cy=%2250%22 r=%2231%22 fill=%22none%22 stroke=%22%23FFFFFF%22 stroke-width=%225%22/><path d=%22M35 62 L50 32 L65 62%22 fill=%22none%22 stroke=%22%23FFFFFF%22 stroke-width=%228%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Manrope:wght@400;500;600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -25,7 +25,7 @@
 
 <header class="site-header" id="site-header">
   <div class="wrap header-inner">
-    <a href="#top" class="wordmark" aria-label="Aricord home">
+    <a href="index.html" class="wordmark" aria-label="Aricord home">
       <svg class="wordmark-mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
         <circle class="mark-halo" cx="50" cy="50" r="48" />
         <circle class="mark-fill" cx="50" cy="50" r="47" />
@@ -36,14 +36,14 @@
     </a>
 
     <nav class="primary-nav" id="primary-nav" aria-label="Primary">
-      <a href="#about">About</a>
-      <a href="#offerings">Offerings</a>
-      <a href="#coverage">Coverage</a>
-      <a href="#accelerators">Accelerators</a>
-      <a href="#stories">Client Stories</a>
+      <a href="about.html">About</a>
+      <a href="offerings.html">Offerings</a>
+      <a href="coverage.html">Coverage</a>
+      <a href="accelerators.html">Accelerators</a>
+      <a href="stories.html">Client Stories</a>
       <a href="news.html">News</a>
-      <a href="#careers">Careers</a>
-      <a href="#contact" class="nav-cta">Contact</a>
+      <a href="careers.html">Careers</a>
+      <a href="contact.html" class="nav-cta">Contact</a>
     </nav>
 
     <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
@@ -59,49 +59,64 @@
     <div class="wrap hero-grid">
       <div class="hero-copy">
         <p class="eyebrow">SAP FINANCE · BUILT ON EXPERIENCE</p>
-        <h1 aria-label="Complex finance deserves more than a standard solution."><span class="type-loop" aria-hidden="true">
-            <span class="type-loop-sizer">Complex finance deserves more than a standard solution.</span>
-            <span class="type-loop-text">Complex finance deserves more than a standard solution.</span>
-          </span></h1>
+        <h1>Complex finance deserves more than a standard solution.</h1>
         <p class="hero-sub">Aricord brings specialist finance and SAP expertise to complex transformation programmes across S/4HANA, Central Finance, regulatory solutions, BTP and AI.</p>
         <div class="hero-actions">
-          <a href="#contact" class="btn btn-primary">Talk to an expert</a>
-          <a href="#offerings" class="btn btn-ghost">See how we work</a>
+          <a href="contact.html" class="btn btn-primary">Talk to an expert</a>
+          <a href="offerings.html" class="btn btn-ghost">See how we work</a>
         </div>
       </div>
 
-      <!-- Hero visual: animated Aricord logo -->
+      <!-- Hero visual: Finance, Regulation, Technology and SAP converge on one point -->
       <figure class="hero-visual">
-        <div class="arc-box">
-          <div class="arc-dots"></div>
-          <div class="arc-glow"></div>
-          <span class="arc-streak arc-k1"></span>
-          <span class="arc-streak arc-k2"></span>
-          <span class="arc-streak arc-k3"></span>
-
-          <svg class="arc-logo" viewBox="0 0 200 200" role="img" aria-label="Aricord logo">
+        <div class="pillars">
+          <svg viewBox="0 0 600 600" role="img" aria-label="Finance, Regulation, Technology and SAP meet at one point">
             <defs>
-              <clipPath id="arcClip"><circle cx="100" cy="100" r="100"/></clipPath>
-              <linearGradient id="arcShineGrad" x1="0" x2="1" y1="0" y2="0">
-                <stop offset="0" stop-color="#9CC4FF" stop-opacity="0"/>
-                <stop offset=".5" stop-color="#9CC4FF" stop-opacity=".45"/>
-                <stop offset="1" stop-color="#9CC4FF" stop-opacity="0"/>
-              </linearGradient>
+              <filter id="pillars-glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="3" result="b" />
+                <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+              </filter>
+              <pattern id="pillars-dots" width="24" height="24" patternUnits="userSpaceOnUse">
+                <circle cx="2" cy="2" r="1.2" fill="rgba(255,255,255,.12)" />
+              </pattern>
+              <radialGradient id="pillars-fade" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#fff" stop-opacity="1" />
+                <stop offset="100%" stop-color="#fff" stop-opacity="0" />
+              </radialGradient>
+              <mask id="pillars-mask"><rect width="600" height="600" fill="url(#pillars-fade)" /></mask>
+              <path id="pTop"    d="M300 110 L300 300" />
+              <path id="pRight"  d="M490 300 L300 300" />
+              <path id="pBottom" d="M300 490 L300 300" />
+              <path id="pLeft"   d="M110 300 L300 300" />
             </defs>
-            <circle cx="100" cy="100" r="100" fill="#fff"/>
-            <circle cx="100" cy="100" r="74" fill="none" stroke="#154C9E" stroke-width="6"/>
-            <path class="arc-chev" d="M56 136 L100 63 L144 136" fill="none" stroke="#154C9E" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-            <g clip-path="url(#arcClip)">
-              <rect class="arc-shine" x="40" y="-60" width="70" height="320" fill="url(#arcShineGrad)" transform="rotate(20 100 100)"/>
-            </g>
-          </svg>
 
-          <svg class="arc-spark arc-p1" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10Z"/></svg>
-          <svg class="arc-spark arc-p2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10Z"/></svg>
-          <svg class="arc-spark arc-p3" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10Z"/></svg>
-          <svg class="arc-spark arc-p4" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10Z"/></svg>
-          <svg class="arc-spark arc-p5" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10Z"/></svg>
-          <svg class="arc-spark arc-p6" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10Z"/></svg>
+            <g class="grid-dots" mask="url(#pillars-mask)">
+              <rect x="-24" y="-24" width="648" height="648" fill="url(#pillars-dots)" />
+            </g>
+
+            <line class="axis a1" data-i="0" x1="300" y1="300" x2="300" y2="110" />
+            <line class="axis a2" data-i="1" x1="300" y1="300" x2="490" y2="300" />
+            <line class="axis a3" data-i="2" x1="300" y1="300" x2="300" y2="490" />
+            <line class="axis a4" data-i="3" x1="300" y1="300" x2="110" y2="300" />
+
+            <circle class="spark" r="3.5"><animateMotion dur="2.8s" repeatCount="indefinite" begin="2s"><mpath href="#pTop" /></animateMotion></circle>
+            <circle class="spark" r="3.5"><animateMotion dur="2.8s" repeatCount="indefinite" begin="2.7s"><mpath href="#pRight" /></animateMotion></circle>
+            <circle class="spark" r="3.5"><animateMotion dur="2.8s" repeatCount="indefinite" begin="3.4s"><mpath href="#pBottom" /></animateMotion></circle>
+            <circle class="spark" r="3.5"><animateMotion dur="2.8s" repeatCount="indefinite" begin="4.1s"><mpath href="#pLeft" /></animateMotion></circle>
+
+            <circle class="ring" cx="300" cy="300" r="14" />
+            <circle class="ring r2" cx="300" cy="300" r="14" />
+            <circle class="ring r3" cx="300" cy="300" r="14" />
+            <circle class="halo" cx="300" cy="300" r="20" />
+            <circle class="core" cx="300" cy="300" r="9" />
+
+            <text class="label l1" data-i="0" x="300" y="88"  text-anchor="middle">FINANCE</text>
+            <text class="label l2" data-i="1" x="505" y="311" text-anchor="start">TECHNOLOGY</text>
+            <text class="label l3" data-i="2" x="300" y="535" text-anchor="middle">SAP</text>
+            <text class="label l4" data-i="3" x="95"  y="311" text-anchor="end">REGULATION</text>
+
+            <text class="tagline" x="300" y="585" text-anchor="middle" data-text="Where complexity gets clarity."><tspan class="pillars-typed"></tspan><tspan class="caret">▍</tspan></text>
+          </svg>
         </div>
       </figure>
 
@@ -139,251 +154,270 @@
     </div>
   </section>
 
-  <!-- ABOUT -->
-  <section class="section" id="about">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">About Us</p>
+  <!-- HOME: ABOUT TEASER (links to about.html) -->
+  <section class="section home-about">
+    <div class="wrap home-about-grid">
+      <div>
+        <p class="eyebrow">About Aricord</p>
         <h2>Deep expertise. A clear focus.</h2>
+        <p>Aricord is built around a simple idea: the best results come from people who truly understand the problem. Our team brings together deep experience in finance, accounting, regulation and SAP, helping organisations navigate complex transformation with greater clarity and confidence.</p>
+        <p>We keep things practical, stay close to our clients, and focus on solutions that work in the real world, not just on paper.</p>
+        <a href="about.html" class="insight-link">More about us →</a>
       </div>
-
-      <div class="about-grid about-grid-solo">
-        <div class="about-copy">
-          <p>Aricord is built around a simple idea: the best results come from people who truly understand the problem.
-Our team brings together deep experience in finance, accounting, regulation and SAP, helping organisations navigate complex transformation with greater clarity and confidence.</p>
-          <p>From S/4HANA and Central Finance to regulatory reporting, BTP and AI, we bring the right expertise at every stage from shaping the solution through to implementation and go-live.
-We keep things practical, stay close to our clients, and focus on solutions that work in the real world, not just on paper.
-150+ years of combined experience. Specialist knowledge. Results that matter.
-</p>
-          <div class="mission-vision">
-            <div>
-              <h3>Mission</h3>
-              <p>To make complex finance transformation simpler by bringing the right expertise, technology and people together. </p>
-            </div>
-            <div>
-              <h3>Vision</h3>
-              <p>Help our clients perform better.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TEAM -->
-  <section class="section section-alt" id="team">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">OUR TEAM</p>
-        <h2>Expertise starts with the right people.</h2>
-        <!-- <p class="section-sub">The "goal" lines below are placeholders for Rishab, Manjula and Kalai — swap in each person's own line before publishing.</p> -->
-      </div>
-
-      <ul class="team-grid" aria-label="Leadership team">
-        <li class="team-card">
-          <div class="team-photo team-photo-1">
-            <img class="team-photo-fit" src="assets\team\rishab-bucha.png" alt="Rishab Bucha">
-          </div>
-          <p class="team-name">Rishab Bucha</p>
-          <p class="team-role">Founder & Managing Director</p>
-          <!-- <p class="team-goal">“Scaling Aricord into the go-to boutique for SAP finance transformation.”</p> -->
-          <a href="https://www.linkedin.com/in/rishab-bucha-9b880a14/" target="_blank" rel="noopener">LinkedIn ↗</a>
-        </li>
-        <!-- <li class="team-card">
-          <div class="team-photo team-photo-2">
-            <img src="assets/team/ajith-pais.jpg" alt="Ajith Pais">
-          </div>
-          <p class="team-name">Ajith Pais</p>
-          <p class="team-role">Engagement Director</p>
-          <p class="team-goal">“Every client engagement should end in a cleaner close than it started.”</p>
-          <a href="https://www.linkedin.com/in/ajith-pais-b746616/" target="_blank" rel="noopener">LinkedIn ↗</a>
-        </li> -->
-        <li class="team-card">
-          <div class="team-photo team-photo-3">
-            <img src="assets\team\manjula-pasala.png" alt="Manjula Pasala">
-          </div>
-          <p class="team-name">Manjula Pasala</p>
-          <p class="team-role">Business Development & Partnerships</p>
-          <!-- <p class="team-goal">“Matching the right SAP finance capability to the right client, early.”</p> -->
-          <a href="https://www.linkedin.com/in/manjulapasala/" target="_blank" rel="noopener">LinkedIn ↗</a>
-        </li>
-        <li class="team-card">
-          <div class="team-photo team-photo-4">
-            <img src="assets\team\kalai-vani.png" alt="Kalai Vani">
-          </div>
-          <p class="team-name">Kalai Vani</p>
-          <p class="team-role">SAP Finance & Operations Lead</p>
-          <!-- <p class="team-goal">“Keeping India delivery predictable enough that clients stop thinking about time zones.”</p> -->
-          <a href="https://www.linkedin.com/in/kalaivani-elanchezian-b719051a/" target="_blank" rel="noopener">LinkedIn ↗</a>
-        </li>
-        <!-- <li class="team-card">
-          <div class="team-photo team-photo-5">
-            <img src="assets/team/shanthini-j.jpg" alt="Shanthini J">
-          </div>
-          <p class="team-name">Shanthini J</p>
-          <p class="team-role">Aricord team member</p>
-          <p class="team-goal">Connect with Shanthini and learn more about her experience on LinkedIn.</p>
-          <a href="https://www.linkedin.com/in/shanthini-j-0a351a30b" target="_blank" rel="noopener">LinkedIn ↗</a>
-        </li> -->
-        <!-- <li class="team-card">
-          <div class="team-photo team-photo-6">
-            <img src="assets/team/dharani-dharan-n.jpg" alt="Dharani Dharan N">
-          </div>
-          <p class="team-name">Dharani Dharan N</p>
-          <p class="team-role">Aricord team member</p>
-          <p class="team-goal">Connect with Dharani and learn more about his experience on LinkedIn.</p>
-          <a href="https://www.linkedin.com/in/dharani-dharan-n-18j2/" target="_blank" rel="noopener">LinkedIn ↗</a>
-        </li> -->
-        <li class="team-card">
-          <div class="team-photo team-photo-7">
-            <img src="assets\team\agilan-s.png" alt="Agilan S">
-          </div>
-          <p class="team-name">Agilan S</p>
-          <p class="team-role">SAP solution lead </p>
-          <!-- <p class="team-goal">Connect with Agilan and learn more about his experience on LinkedIn.</p> -->
-          <a href="https://www.linkedin.com/in/agilan-s-149822292/" target="_blank" rel="noopener">LinkedIn ↗</a>
-        </li>
-        <li class="team-card">
-          <div class="team-photo team-photo-8">
-            <img src="assets/team/vignesh-k.jpg" alt="Vignesh K">
-          </div>
-          <p class="team-name">Vignesh K</p>
-          <p class="team-role">SAP Delivery Lead</p>
-          <!-- <p class="team-goal">Connect with Vignesh and learn more about his experience on LinkedIn.</p> -->
-          <a href="https://www.linkedin.com/in/vignesh-k137" target="_blank" rel="noopener">LinkedIn ↗</a>
-        </li>
-        <!-- <li class="team-card">
-          <div class="team-photo team-photo-9">
-            <img src="assets/team/suryaprakash-m.jpg" alt="Suryaprakash M">
-          </div>
-          <p class="team-name">Suryaprakash M</p>
-          <p class="team-role">Aricord team member</p>
-          <p class="team-goal">Connect with Suryaprakash and learn more about his experience on LinkedIn.</p>
-          <a href="https://www.linkedin.com/in/suryaprakashm1" target="_blank" rel="noopener">LinkedIn ↗</a>
-        </li> -->
-        <!-- <li class="team-card">
-          <div class="team-photo team-photo-10">
-            <img src="assets/team/sarla-baddela.jpg" alt="Sarla Baddela">
-          </div>
-          <p class="team-name">Sarla Baddela</p>
-          <p class="team-role">Aricord team member</p>
-          <p class="team-goal">Connect with Sarla and learn more about her experience on LinkedIn.</p>
-          <a href="https://www.linkedin.com/in/sarla-baddela-7002b321b/" target="_blank" rel="noopener">LinkedIn ↗</a>
-        </li> -->
+      <ul class="home-stats" aria-label="Aricord at a glance">
+        <li><strong><span class="count-up" data-target="150">150</span>+</strong><span>years of industry experience across our team</span></li>
+        <li><strong>End to end</strong><span>from shaping the solution to go-live</span></li>
+        <li><strong>SAP</strong><span>build partner — a UK-registered entity operating across various regions</span></li>
+        <li><strong>Specialist</strong><span>finance, regulation &amp; SAP knowledge</span></li>
       </ul>
     </div>
   </section>
 
-  <!-- OFFERINGS -->
-  <section class="section section-alt" id="offerings">
+  <!-- HOME OVERVIEW: summary strip, offerings list and route cards, each linking to its own page -->
+  <section class="section section-alt home-overview">
     <div class="wrap">
       <div class="section-head">
         <p class="eyebrow">Our Offerings</p>
         <h2>SAP expertise across the finance journey.</h2>
-        <p class="section-sub">From transformation and migration to implementation and ongoing support, we bring specialist SAP expertise to the areas where finance needs it most.</p>
+        <p class="section-sub">Our firm offers upgrade, migration, implementation, testing, AMS, integration services &amp; facilitation for finance, with SAP as the technology platform.</p>
       </div>
 
-      <div class="offer-grid">
-        <article class="offer-card">
+      <div class="offer-grid home-offer-grid">
+        <a class="offer-card" href="offerings.html">
           <span class="tag tag-dark">S/4 · CFIN</span>
-          <h3>S/4HANA Finance &amp; Central Finance</h3>
-          <p>Finance transformation, Central Finance, implementation and optimisation — supported by proven accelerators and hands-on delivery experience.</p>
-        </article>
-        <article class="offer-card">
+          <h3>S/4HANA Finance &amp; CFIN</h3>
+          <p>Deep finance expertise and proven accelerators to help organisations move to S/4HANA Central Finance, through to post go-live stabilisation.</p>
+        </a>
+        <a class="offer-card" href="offerings.html">
           <span class="tag tag-dark">FPSL · RAR · RE-FX</span>
-          <h3>SAP Subledger & Regulatory Solutions</h3>
-          <p>Specialist expertise across FPSL, FSDP, RAR and RE-FX, with deep experience in complex insurance and banking environments.</p>
-        </article>
-        <!-- <article class="offer-card">
+          <h3>SAP Subledger</h3>
+          <p>Consulting on SAP subledger solutions including FPSL, FSDP, RAR and RE-FX, and industry solutions for Insurance &amp; Banking.</p>
+        </a>
+        <a class="offer-card" href="offerings.html">
           <span class="tag tag-dark">S/4HANA</span>
           <h3>S/4HANA</h3>
-          <p>Deep knowledge of the S/4HANA solution, with consulting and advisory services covering Finance and other support functions.</p>
-        </article> -->
-        <article class="offer-card">
+          <p>Consulting and advisory services on Finance and other support functions on S/4HANA.</p>
+        </a>
+        <a class="offer-card" href="offerings.html">
           <span class="tag tag-dark">BTP</span>
           <h3>SAP BTP</h3>
-          <p>Applications, integrations and extensions built on SAP BTP — helping organisations modernise while keeping the SAP core clean.</p>
-        </article>
-        <article class="offer-card">
+          <p>As an SAP build partner, we develop on SAP BTP, including integration, workflow and iRPA solutions.</p>
+        </a>
+        <a class="offer-card" href="offerings.html">
           <span class="tag tag-dark">DATA · MIGRATION</span>
-          <h3>Data Migration & Reconciliation</h3>
-          <p>End-to-end migration of master and transactional data, with mapping, validation and reconciliation built into the delivery.</p>
-        </article>
-        <article class="offer-card">
-          <span class="tag tag-dark">AMS · SUPPORT</span>
-          <h3>Application Management & Optimisation</h3>
-          <p>Post-go-live support, continuous improvement and specialist SAP Finance expertise to keep critical processes running effectively.</p>
-        </article>
+          <h3>Data Migration</h3>
+          <p>Master and transaction data migration, with full reconciliation.</p>
+        </a>
+      </div>
+      <p class="home-offer-more"><a href="offerings.html" class="insight-link">View all offerings →</a></p>
+
+      <div class="home-route-grid">
+        <a class="home-route-card" href="accelerators.html">
+          <h3>Accelerators</h3>
+          <p>We help clients speed up their finance transformation journey with our reusable accelerators.</p>
+          <span class="home-route-link">Read more →</span>
+        </a>
+        <a class="home-route-card" href="coverage.html">
+          <h3>SAP solution coverage</h3>
+          <p>Coverage across key SAP solution areas, including the process &amp; controls framework that implementation success depends on.</p>
+          <span class="home-route-link">Read more →</span>
+        </a>
+        <a class="home-route-card" href="stories.html">
+          <h3>Industry &amp; regulatory coverage</h3>
+          <p>Our solution team has deep industry and regulatory compliance experience, using SAP as the platform.</p>
+          <span class="home-route-link">Read more →</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- SOLUTION COVERAGE -->
-  <section class="section" id="coverage">
-    <div class="wrap coverage-grid">
-      <div>
-        <p class="eyebrow">SAP Solution Coverage</p>
-        <h2>Coverage across the areas that make a programme land.</h2>
-        <p>In SAP, we provide coverage across key solution areas — including support for the process &amp; controls framework that implementation success depends on.</p>
-        <a href="#contact" class="btn btn-ghost">Ask about your solution area</a>
+  <!-- HOME: ACCELERATORS TEASER (links to accelerators.html) -->
+  <section class="section section-dark">
+    <div class="wrap">
+      <div class="section-head home-head-row">
+        <div>
+          <p class="eyebrow">Accelerators</p>
+          <h2>Built to shorten the slow parts of a finance transformation.</h2>
+        </div>
+        <a href="accelerators.html" class="btn btn-ghost">Explore accelerators</a>
       </div>
-      <ul class="coverage-list">
-        <li><span class="dot"></span>Finance &amp; regulatory reporting</li>
-        <li><span class="dot"></span>Process &amp; controls framework</li>
-        <li><span class="dot"></span>Performance management</li>
-        <li><span class="dot"></span>Customer experience</li>
-        <li><span class="dot"></span>Industry &amp; regulatory compliance</li>
+      <div class="home-accel-points" id="home-accel-points">
+        <div class="home-accel-point">
+          <h3>Blueprinting</h3>
+        </div>
+        <span class="home-accel-arrow" aria-hidden="true">
+          <svg viewBox="0 0 120 24" focusable="false"><path class="arrow-line" d="M2 12 H112" /><path class="arrow-head" d="M104 4 L114 12 L104 20" /></svg>
+        </span>
+        <div class="home-accel-point">
+          <h3>Data migration &amp; reconciliation</h3>
+        </div>
+        <span class="home-accel-arrow" aria-hidden="true">
+          <svg viewBox="0 0 120 24" focusable="false"><path class="arrow-line" d="M2 12 H112" /><path class="arrow-head" d="M104 4 L114 12 L104 20" /></svg>
+        </span>
+        <div class="home-accel-point">
+          <h3>Testing &amp; cutover</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOME: COVERAGE (links to coverage.html) — industries now live in the client stories showcase below -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head home-head-row">
+        <div>
+          <p class="eyebrow">SAP Solution Coverage</p>
+          <h2>Coverage across the areas that make a programme land.</h2>
+        </div>
+        <a href="coverage.html" class="btn btn-ghost">See full coverage</a>
+      </div>
+
+      <!-- Simple coverage row: items fade in one by one along a line that draws across -->
+      <ol class="cov-steps" id="cov-steps">
+        <li><span class="cov-step-dot"></span><span class="cov-num">01</span><h3>Finance &amp; regulatory reporting</h3></li>
+        <li><span class="cov-step-dot"></span><span class="cov-num">02</span><h3>Process &amp; controls framework</h3></li>
+        <li><span class="cov-step-dot"></span><span class="cov-num">03</span><h3>Performance management</h3></li>
+        <li><span class="cov-step-dot"></span><span class="cov-num">04</span><h3>Customer experience</h3></li>
+        <li><span class="cov-step-dot"></span><span class="cov-num">05</span><h3>Industry &amp; regulatory compliance</h3></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- HOME: LEADERSHIP STRIP (links to about.html#team) -->
+  <section class="section section-alt">
+    <div class="wrap">
+      <div class="section-head home-head-row">
+        <div>
+          <p class="eyebrow">Our Team</p>
+          <h2>The people behind the work.</h2>
+        </div>
+        <a href="about.html#team" class="btn btn-ghost">Meet the team</a>
+      </div>
+      <ul class="home-team">
+        <li><a href="about.html#team"><img src="assets/team/rishab-bucha.png" alt="" loading="lazy"><span class="team-name">Rishab Bucha</span><span class="team-role">Founder &amp; Managing Director</span></a></li>
+        <li><a href="about.html#team"><img src="assets/team/manjula-pasala.png" alt="" loading="lazy"><span class="team-name">Manjula Pasala</span><span class="team-role">Business Development &amp; Partnerships</span></a></li>
+        <li><a href="about.html#team"><img src="assets/team/kalai-vani.png" alt="" loading="lazy"><span class="team-name">Kalai Vani</span><span class="team-role">SAP Finance &amp; Operations Lead</span></a></li>
+        <li><a href="about.html#team"><img src="assets/team/agilan-s.png" alt="" loading="lazy"><span class="team-name">Agilan S</span><span class="team-role">SAP Solution Lead</span></a></li>
+        <li><a href="about.html#team"><img src="assets/team/vignesh-k.jpg" alt="" loading="lazy"><span class="team-name">Vignesh K</span><span class="team-role">SAP Delivery Lead</span></a></li>
       </ul>
     </div>
   </section>
 
-  <!-- ACCELERATORS -->
-  <section class="section section-dark" id="accelerators">
+  <!-- HOME: CLIENT STORIES SHOWCASE (links to stories.html) -->
+  <section class="section section-dark home-stories" aria-labelledby="home-stories-title">
     <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">Accelerators</p>
-        <h2>Built to shorten the slow parts of a finance transformation.</h2>
-        <p class="section-sub">We help clients accelerate their finance transformation journey with reusable frameworks across three phases.</p>
+      <div class="section-head home-head-row">
+        <div>
+          <p class="eyebrow">Client Stories</p>
+          <h2 id="home-stories-title">Real problems. Measurable outcomes.</h2>
+        </div>
+        <a href="stories.html" class="btn btn-ghost">All client stories</a>
       </div>
-      <div class="accel-grid">
-        <div class="accel-card">
-          <span class="accel-num">01</span>
-          <h3>Blueprinting</h3>
-          <p>Pre-built process frameworks and design patterns for finance and regulatory reporting, so design workshops start from a working draft, not a blank page.</p>
-        </div>
-        <div class="accel-card">
-          <span class="accel-num">02</span>
-          <h3>Data migration &amp; reconciliation</h3>
-          <p>Structured approaches to master and transaction data migration, with reconciliation built in from the first mock load.</p>
-        </div>
-        <div class="accel-card">
-          <span class="accel-num">03</span>
-          <h3>Testing &amp; cutover</h3>
-          <p>Reusable test scripts and cutover playbooks for finance processes, aimed at a stable close in the first period after go&#8209;live.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- CLIENT STORIES -->
-  <section class="section" id="stories">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">Client Stories</p>
-        <h2>Industries we work in.</h2>
-        <p class="section-sub">We're building out full write-ups of client engagements. In the meantime, here's where our team spends most of its time.</p>
+      <div class="showcase" id="showcase">
+        <div class="showcase-tabs" role="tablist" aria-label="Client stories">
+          <button type="button" class="showcase-tab is-active" role="tab" id="sc-tab-1" aria-controls="sc-panel-1" aria-selected="true">
+            <span class="showcase-tab-sector">Auto finance · Fortune 500</span>
+            <span class="showcase-tab-title">Subledger transformation</span>
+            <i class="showcase-tab-progress" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="showcase-tab" role="tab" id="sc-tab-2" aria-controls="sc-panel-2" aria-selected="false" tabindex="-1">
+            <span class="showcase-tab-sector">Manufacturing</span>
+            <span class="showcase-tab-title">S/4HANA stabilisation</span>
+            <i class="showcase-tab-progress" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="showcase-tab" role="tab" id="sc-tab-3" aria-controls="sc-panel-3" aria-selected="false" tabindex="-1">
+            <span class="showcase-tab-sector">Multinational corporation</span>
+            <span class="showcase-tab-title">Chart of accounts redesign</span>
+            <i class="showcase-tab-progress" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="showcase-tab" role="tab" id="sc-tab-4" aria-controls="sc-panel-4" aria-selected="false" tabindex="-1">
+            <span class="showcase-tab-sector">SaaS provider</span>
+            <span class="showcase-tab-title">Onboarding automation on BTP</span>
+            <i class="showcase-tab-progress" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="showcase-panels">
+          <article class="showcase-panel is-active" role="tabpanel" id="sc-panel-1" aria-labelledby="sc-tab-1" style="--v:50">
+            <div class="showcase-ring">
+              <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false"><circle class="ring-track" cx="60" cy="60" r="54" /><circle class="ring-fill" cx="60" cy="60" r="54" /></svg>
+              <div class="showcase-ring-value"><strong><span class="sc-count" data-target="50">50</span>%</strong><span>faster month-end close</span></div>
+            </div>
+            <div class="showcase-copy">
+              <p class="showcase-tags"><span class="tag">S/4HANA</span><span class="tag">FPSL</span><span class="tag">BTP</span></p>
+              <h3>A Fortune 500 auto financer's move to a modern subledger</h3>
+              <ol class="showcase-flow">
+                <li><b>Challenge</b>Legacy subledger with no real-time data and regulatory reporting gaps.</li>
+                <li><b>Solution</b>SAP S/4HANA and FPSL tailored to auto finance, with secure data migration and team training.</li>
+                <li><b>Result</b>50% shorter month-end close and 30% shorter audits through real-time reporting.</li>
+              </ol>
+            </div>
+          </article>
+
+          <article class="showcase-panel" role="tabpanel" id="sc-panel-2" aria-labelledby="sc-tab-2" style="--v:40">
+            <div class="showcase-ring">
+              <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false"><circle class="ring-track" cx="60" cy="60" r="54" /><circle class="ring-fill" cx="60" cy="60" r="54" /></svg>
+              <div class="showcase-ring-value"><strong><span class="sc-count" data-target="40">40</span>%</strong><span>better margin accuracy</span></div>
+            </div>
+            <div class="showcase-copy">
+              <p class="showcase-tags"><span class="tag">S/4HANA</span><span class="tag">CONTROLLING</span></p>
+              <h3>Stabilising S/4HANA for a large manufacturer</h3>
+              <ol class="showcase-flow">
+                <li><b>Challenge</b>Post-migration instability across MTO, MTS and ETO, with unreliable margin reporting.</li>
+                <li><b>Solution</b>A specialist team, tailored process fixes and advanced analytics for margin reporting.</li>
+                <li><b>Result</b>30% shorter process cycle time and restored confidence in the numbers.</li>
+              </ol>
+            </div>
+          </article>
+
+          <article class="showcase-panel" role="tabpanel" id="sc-panel-3" aria-labelledby="sc-tab-3" style="--v:40">
+            <div class="showcase-ring">
+              <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false"><circle class="ring-track" cx="60" cy="60" r="54" /><circle class="ring-fill" cx="60" cy="60" r="54" /></svg>
+              <div class="showcase-ring-value"><strong><span class="sc-count" data-target="40">40</span>%</strong><span>faster reporting</span></div>
+            </div>
+            <div class="showcase-copy">
+              <p class="showcase-tags"><span class="tag">S/4HANA</span><span class="tag">FINANCE</span></p>
+              <h3>Stronger financial controls for a multinational</h3>
+              <ol class="showcase-flow">
+                <li><b>Challenge</b>An over-complicated chart of accounts slowing reporting and raising compliance risk.</li>
+                <li><b>Solution</b>A streamlined chart of accounts on S/4HANA with controls built in.</li>
+                <li><b>Result</b>Delivered in 3 months, with better accuracy and lower compliance risk.</li>
+              </ol>
+            </div>
+          </article>
+
+          <article class="showcase-panel" role="tabpanel" id="sc-panel-4" aria-labelledby="sc-tab-4" style="--v:40">
+            <div class="showcase-ring">
+              <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false"><circle class="ring-track" cx="60" cy="60" r="54" /><circle class="ring-fill" cx="60" cy="60" r="54" /></svg>
+              <div class="showcase-ring-value"><strong><span class="sc-count" data-target="40">40</span>%</strong><span>faster onboarding</span></div>
+            </div>
+            <div class="showcase-copy">
+              <p class="showcase-tags"><span class="tag">BTP</span><span class="tag">AI</span><span class="tag">S/4HANA</span></p>
+              <h3>Faster customer onboarding for a SaaS provider</h3>
+              <ol class="showcase-flow">
+                <li><b>Challenge</b>Complex ERP integrations stretching onboarding to five weeks.</li>
+                <li><b>Solution</b>Automated integration on SAP BTP, with conversational AI and machine learning.</li>
+                <li><b>Result</b>Onboarding cut from 5 weeks to 3, with 50% fewer support tickets.</li>
+              </ol>
+            </div>
+          </article>
+        </div>
       </div>
-      <div class="industry-grid">
-        <div class="industry-card"><h3>Insurance</h3><p>Regulatory reporting and subledger work (FPSL, RAR) for insurers modernising their finance stack.</p></div>
-        <div class="industry-card"><h3>Banking</h3><p>Finance and regulatory reporting programmes for banking clients on SAP.</p></div>
-        <div class="industry-card"><h3>Manufacturing &amp; other sectors</h3><p>S/4HANA finance and data migration support for organisations outside financial services.</p></div>
+
+      <div class="home-stories-industries">
+        <p class="home-stories-industries-label">Industries we work in</p>
+        <div class="home-stories-industry-grid">
+          <a class="home-stories-industry" href="stories.html"><h3>Financial services</h3><p>Subledger and regulatory reporting (FPSL, RAR) for insurers, banks and auto financers.</p></a>
+          <a class="home-stories-industry" href="stories.html"><h3>Manufacturing</h3><p>S/4HANA stabilisation, Controlling and margin reporting across MTO, MTS and ETO.</p></a>
+          <a class="home-stories-industry" href="stories.html"><h3>Technology, services &amp; media</h3><p>BTP integration, onboarding automation and S/4HANA business cases.</p></a>
+        </div>
       </div>
-      <p class="stories-note">Want detail on a specific engagement? <a href="#contact">Get in touch</a> and we'll walk you through relevant work.</p>
     </div>
   </section>
 
   <!-- INSIGHTS: BLOG / NEWS TABS -->
-  <section class="section section-alt" id="insights">
+  <section class="section" id="insights">
     <div class="wrap">
       <div class="section-head">
         <p class="eyebrow">News &amp; Insights</p>
@@ -457,60 +491,22 @@ We keep things practical, stay close to our clients, and focus on solutions that
     </div>
   </section>
 
-  <!-- CAREERS -->
-  <section class="section" id="careers">
-    <div class="wrap careers-grid">
-      <div>
-        <p class="eyebrow">Careers</p>
-        <h2>We grow deliberately, not fast.</h2>
-        <p>Aricord stays a small, senior team by design. If SAP finance transformation is genuinely your thing — implementation, AMS, or data migration — we'd like to hear from you.</p>
-      </div>
-      <a href="#contact" class="btn btn-primary">Get in touch about opportunities</a>
-    </div>
-  </section>
 
-  <!-- CONTACT -->
-  <section class="section section-dark" id="contact">
-    <div class="wrap contact-grid">
-      <div class="contact-intro">
+  <!-- HOME: CAREERS + CONTACT CTA (links to careers.html and contact.html) -->
+  <section class="section section-dark home-cta">
+    <div class="wrap home-cta-grid">
+      <a class="home-cta-card" href="contact.html">
         <p class="eyebrow">Contact</p>
         <h2>Tell us where your programme stands.</h2>
-        <p class="section-sub">A short note is enough — team size, SAP landscape, and what's not working yet.</p>
-
-        <div class="contact-people">
-          <div class="contact-person">
-            <p class="team-name">Rishab Bucha — Founder</p>
-            <a href="tel:+447774754095">+44 (0) 7774 754095</a>
-          </div>
-          <div class="contact-person">
-            <p class="team-name">Ajith Pais — Engagement Director</p>
-            <a href="tel:+447534014268">+44 (0) 7534 014268</a>
-          </div>
-        </div>
-
-        <div class="social-row">
-          <a href="https://web.whatsapp.com/send?phone=+447774754095" target="_blank" rel="noopener" aria-label="WhatsApp">WhatsApp</a>
-          <a href="https://www.linkedin.com/company/astron-r2r-consulting-limited/" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
-          <a href="https://twitter.com/Aricord_consltg" target="_blank" rel="noopener" aria-label="X / Twitter">X / Twitter</a>
-        </div>
-      </div>
-
-      <form class="contact-form" id="contact-form" novalidate>
-        <label>
-          Name
-          <input type="text" name="name" id="cf-name" required autocomplete="name">
-        </label>
-        <label>
-          Work email
-          <input type="email" name="email" id="cf-email" required autocomplete="email">
-        </label>
-        <label>
-          What's the situation?
-          <textarea name="message" id="cf-message" rows="4" required></textarea>
-        </label>
-        <button type="submit" class="btn btn-primary">Send via email</button>
-        <p class="form-note" id="cf-note" role="status"></p>
-      </form>
+        <p>A short note is enough: team size, SAP landscape, and what's not working yet.</p>
+        <span class="btn btn-primary">Talk to an expert</span>
+      </a>
+      <a class="home-cta-card" href="careers.html">
+        <p class="eyebrow">Careers</p>
+        <h2>We grow deliberately, not fast.</h2>
+        <p>A small, senior team by design. If SAP finance transformation is your thing (implementation, AMS or data migration), we'd like to hear from you.</p>
+        <span class="btn btn-ghost">View careers</span>
+      </a>
     </div>
   </section>
 
@@ -519,7 +515,7 @@ We keep things practical, stay close to our clients, and focus on solutions that
 <footer class="site-footer">
   <div class="wrap footer-grid">
     <div>
-      <a href="#top" class="wordmark wordmark-footer">
+      <a href="index.html" class="wordmark wordmark-footer">
         <svg class="wordmark-mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
           <circle class="mark-halo" cx="50" cy="50" r="48" />
           <circle class="mark-fill" cx="50" cy="50" r="47" />
@@ -532,14 +528,14 @@ We keep things practical, stay close to our clients, and focus on solutions that
     </div>
 
     <nav aria-label="Footer">
-      <a href="#about">About</a>
-      <a href="#offerings">Offerings</a>
-      <a href="#coverage">Coverage</a>
-      <a href="#accelerators">Accelerators</a>
-      <a href="#stories">Client Stories</a>
+      <a href="about.html">About</a>
+      <a href="offerings.html">Offerings</a>
+      <a href="coverage.html">Coverage</a>
+      <a href="accelerators.html">Accelerators</a>
+      <a href="stories.html">Client Stories</a>
       <a href="news.html">News</a>
-      <a href="#careers">Careers</a>
-      <a href="#contact">Contact</a>
+      <a href="careers.html">Careers</a>
+      <a href="contact.html">Contact</a>
     </nav>
 
     <div class="footer-legal">

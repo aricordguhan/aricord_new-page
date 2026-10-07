@@ -20,7 +20,7 @@ if (navToggle && primaryNav) {
 // selector, no IntersectionObserver support, a thrown error), content is
 // force-shown after a short delay rather than staying permanently hidden.
 const revealTargets = document.querySelectorAll(
-  '.section-head, .offer-card, .team-card, .accel-card, .industry-card, .insight-stub, .ledger-card, .news-card, .news-lead, .news-row, .topic-tile'
+  '.section-head, .offer-card, .team-card, .accel-card, .industry-card, .insight-stub, .ledger-card, .news-card, .news-lead, .news-row, .topic-tile, .story-card, .stories-quote, .home-stories-industry'
 );
 revealTargets.forEach((el) => el.classList.add('reveal'));
 
@@ -47,6 +47,60 @@ try {
 } catch (err) {
   revealNow();
 }
+
+// Home accelerators: play 1 → arrow → 2 → arrow → 3 once the row scrolls into view.
+// Only armed (hidden) when IntersectionObserver exists and motion is allowed.
+(() => {
+  const row = document.getElementById('home-accel-points');
+  if (!row || !('IntersectionObserver' in window)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  row.classList.add('is-armed');
+  const io = new IntersectionObserver(
+    (entries) => {
+      if (!entries.some((e) => e.isIntersecting)) return;
+      row.classList.add('is-playing');
+      io.disconnect();
+    },
+    { threshold: 0.4 }
+  );
+  io.observe(row);
+})();
+
+// Count-up numbers (e.g. 150+): animate from 0 to data-target when scrolled into view.
+// The real number is in the markup, so it still shows without JS or with reduced motion.
+(() => {
+  const nums = document.querySelectorAll('.count-up[data-target]');
+  if (!nums.length || !('IntersectionObserver' in window)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const run = (el) => {
+    const target = parseInt(el.dataset.target, 10) || 0;
+    const duration = 1600;
+    const start = performance.now();
+    const step = (now) => {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(target * eased);
+      if (t < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        run(entry.target);
+        io.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.6 }
+  );
+  nums.forEach((el) => {
+    el.textContent = '0';
+    io.observe(el);
+  });
+})();
 
 // Contact form -> mailto (no backend on a static local site)
 const form = document.getElementById('contact-form');
@@ -147,43 +201,6 @@ document.querySelectorAll('.news-row').forEach((row) => {
   updateArrows();
 });
 
-// Hero headline: looping typewriter effect (types, holds, backspaces; cycles if data-phrases lists several)
-document.addEventListener('DOMContentLoaded', () => {
-  const wrap = document.querySelector('.type-loop');
-  const el = wrap && wrap.querySelector('.type-loop-text');
-  if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  const phrases = (wrap.dataset.phrases || el.textContent.trim()).split('|');
-  // Size the reserved space to the longest phrase
-  wrap.querySelector('.type-loop-sizer').textContent = phrases.reduce((a, b) => (b.length > a.length ? b : a));
-
-  let p = 0;
-  let i = 0;
-  let deleting = false;
-  el.textContent = '';
-
-  const tick = () => {
-    const text = phrases[p];
-    i += deleting ? -1 : 1;
-    el.textContent = text.slice(0, i);
-
-    let delay = deleting ? 40 : 70;
-    if (!deleting && i === text.length) {
-      // Finished typing: hold the phrase, then backspace it
-      deleting = true;
-      delay = 2000;
-    } else if (deleting && i === 0) {
-      // Fully erased: move on to the next phrase
-      deleting = false;
-      p = (p + 1) % phrases.length;
-      delay = 350;
-    }
-    setTimeout(tick, delay);
-  };
-  // Wait for the intro overlay to fade out before starting to type
-  setTimeout(tick, document.getElementById('intro') ? 4500 : 400);
-});
-
 // Intro: ARICORD tagline typed in once, held, then the overlay fades out to reveal the page
 document.addEventListener('DOMContentLoaded', () => {
   const intro = document.getElementById('intro');
@@ -213,3 +230,171 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   setTimeout(tick, 800);
 });
+
+// Hero pillars visual: type the tagline once the axes have drawn, and light up a pillar on hover
+document.addEventListener('DOMContentLoaded', () => {
+  const svg = document.querySelector('.pillars svg');
+  if (!svg) return;
+
+  svg.querySelectorAll('[data-i]').forEach((el) => {
+    const group = svg.querySelectorAll(`[data-i="${el.dataset.i}"]`);
+    el.addEventListener('mouseenter', () => group.forEach((g) => g.classList.add('is-hot')));
+    el.addEventListener('mouseleave', () => group.forEach((g) => g.classList.remove('is-hot')));
+  });
+
+  const tagline = svg.querySelector('.tagline');
+  const typed = tagline && tagline.querySelector('.pillars-typed');
+  if (!typed) return;
+  const text = tagline.dataset.text || '';
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { typed.textContent = text; return; }
+
+  let i = 0;
+  const tick = () => {
+    typed.textContent = text.slice(0, i);
+    if (i < text.length) { i += 1; setTimeout(tick, 70); }
+  };
+  // Wait for the intro overlay, plus time for the axes and labels to appear
+  setTimeout(tick, (document.getElementById('intro') ? 4500 : 400) + 1800);
+});
+
+// Client stories: expand/collapse, filter chips and metric bars
+(() => {
+  const list = document.getElementById('story-list');
+  if (!list) return;
+  const cards = Array.from(list.querySelectorAll('.story-card'));
+  list.classList.add('js-stories');
+  const filterBar = document.querySelector('.story-filters');
+  if (filterBar) filterBar.hidden = false;
+
+  // Expand / collapse the full story
+  cards.forEach((card) => {
+    const btn = card.querySelector('.story-toggle');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', String(open));
+      btn.firstChild.textContent = open ? 'Hide the full story ' : 'Read the full story ';
+      card.classList.toggle('is-open', open);
+    });
+  });
+
+  // Filter chips: fade non-matching cards out, then remove them from the layout
+  const chips = document.querySelectorAll('.story-filter');
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const f = chip.dataset.filter;
+      chips.forEach((c) => {
+        const on = c === chip;
+        c.classList.toggle('is-active', on);
+        c.setAttribute('aria-pressed', String(on));
+      });
+      cards.forEach((card) => {
+        const match = f === 'all' || card.dataset.area.split(' ').includes(f);
+        if (match) {
+          card.hidden = false;
+          requestAnimationFrame(() => requestAnimationFrame(() => card.classList.remove('is-filtered-out')));
+        } else {
+          card.classList.add('is-filtered-out');
+          setTimeout(() => { if (card.classList.contains('is-filtered-out')) card.hidden = true; }, 300);
+        }
+      });
+    });
+  });
+
+  // Metric bars fill when their card scrolls into view
+  if (!('IntersectionObserver' in window)) {
+    cards.forEach((card) => card.classList.add('bars-on'));
+    return;
+  }
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('bars-on');
+        io.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.35 }
+  );
+  cards.forEach((card) => io.observe(card));
+})();
+
+// Home: client stories showcase. Click or arrow-key between stories; the active
+// story's ring draws and its number counts up. First draw waits until in view.
+(() => {
+  const root = document.getElementById('showcase');
+  if (!root) return;
+  const tabs = Array.from(root.querySelectorAll('.showcase-tab'));
+  const panels = Array.from(root.querySelectorAll('.showcase-panel'));
+  if (!tabs.length || tabs.length !== panels.length) return;
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  root.classList.add('js-showcase');
+  let current = 0;
+
+  const countUp = (el) => {
+    const target = parseInt(el.dataset.target, 10) || 0;
+    if (reduced) { el.textContent = target; return; }
+    const start = performance.now();
+    const step = (now) => {
+      const t = Math.min((now - start) / 1000, 1);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - t, 3)));
+      if (t < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
+  const show = (i, focus) => {
+    current = (i + tabs.length) % tabs.length;
+    tabs.forEach((tab, n) => {
+      const on = n === current;
+      tab.classList.toggle('is-active', on);
+      tab.setAttribute('aria-selected', String(on));
+      tab.tabIndex = on ? 0 : -1;
+      panels[n].classList.toggle('is-active', on);
+      panels[n].classList.remove('is-drawn');
+    });
+    if (focus) tabs[current].focus();
+    requestAnimationFrame(() => {
+      void panels[current].offsetWidth;
+      panels[current].classList.add('is-drawn');
+      const num = panels[current].querySelector('.sc-count');
+      if (num) countUp(num);
+    });
+  };
+
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => show(i));
+    tab.addEventListener('keydown', (e) => {
+      const keys = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 };
+      if (e.key in keys) { e.preventDefault(); show(current + keys[e.key], true); }
+      else if (e.key === 'Home') { e.preventDefault(); show(0, true); }
+      else if (e.key === 'End') { e.preventDefault(); show(tabs.length - 1, true); }
+    });
+  });
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      if (!entries.some((e) => e.isIntersecting)) return;
+      io.disconnect();
+      show(current);
+    }, { threshold: 0.35 });
+    io.observe(root);
+  } else {
+    show(0);
+  }
+})();
+
+// Home coverage row: line draws across and the five areas fade in one by one
+(() => {
+  const row = document.getElementById('cov-steps');
+  if (!row || !('IntersectionObserver' in window)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  row.classList.add('is-armed');
+  const io = new IntersectionObserver((entries) => {
+    if (!entries.some((e) => e.isIntersecting)) return;
+    row.classList.add('is-playing');
+    io.disconnect();
+  }, { threshold: 0.4 });
+  io.observe(row);
+})();

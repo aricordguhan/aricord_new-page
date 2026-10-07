@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quick Tip: Joule for S/4HANA Public Cloud — Aricord Blog</title>
+<meta name="description" content="Joule not answering in SAP S/4HANA Public Cloud? Check that business roles are exposed to BTP, run the identity provisioning job, and confirm the roles reach SAP Build Work Zone.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%23FFFFFF%22/><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22%230A2E6B%22/><circle cx=%2250%22 cy=%2250%22 r=%2231%22 fill=%22none%22 stroke=%22%23FFFFFF%22 stroke-width=%225%22/><path d=%22M35 62 L50 32 L65 62%22 fill=%22none%22 stroke=%22%23FFFFFF%22 stroke-width=%228%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="site-header">
+  <div class="wrap header-inner">
+    <a href="index.html" class="wordmark" aria-label="Aricord home">
+      <svg class="wordmark-mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+        <circle class="mark-halo" cx="50" cy="50" r="48" />
+        <circle class="mark-fill" cx="50" cy="50" r="47" />
+        <circle class="mark-ring" cx="50" cy="50" r="35" />
+        <path class="mark-chevron" d="M34 60 L50 33 L66 60" />
+      </svg>
+      <span class="wordmark-text">Aricord</span>
+    </a>
+
+    <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+      <a href="about.html">About</a>
+      <a href="offerings.html">Offerings</a>
+      <a href="coverage.html">Coverage</a>
+      <a href="accelerators.html">Accelerators</a>
+      <a href="stories.html">Client Stories</a>
+      <a href="news.html" class="is-active">News</a>
+      <a href="careers.html">Careers</a>
+      <a href="contact.html" class="nav-cta">Contact</a>
+    </nav>
+
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- BLOG POST HERO -->
+  <section class="news-hero">
+    <div class="wrap">
+      <p class="crumbs"><a href="index.html">Home</a> <span>/</span> <a href="news.html">News</a> <span>/</span> Blog</p>
+      <p class="eyebrow">Blog · Quick Tip</p>
+      <h1>Quick tip: Joule for S/4HANA Public Cloud</h1>
+      <p class="news-hero-sub">Joule not answering — or not responding at all? Check your roles first.</p>
+    </div>
+  </section>
+
+  <!-- BLOG POST BODY -->
+  <section class="section">
+    <div class="wrap">
+      <article class="post">
+        <figure class="post-media news-lead-media news-media-3">
+          <img class="news-media-photo" src="assets/news/btp-cloud.jpg" alt="Cloud imagery, representing SAP S/4HANA Public Cloud and SAP BTP">
+        </figure>
+        <p class="news-byline">Rishab Bucha, Aricord Consulting · 19 December 2025 · 2 min read</p>
+
+        <aside class="post-keypoints" aria-label="Key takeaways">
+          <h2>The short version</h2>
+          <ul>
+            <li>If Joule is silent or unhelpful, the cause is often <strong>role setup</strong>, not Joule itself.</li>
+            <li>In <strong>Maintain Business Roles</strong>, tick <strong>"Exposed to BTP"</strong> — it is usually <strong>not ticked by default</strong>.</li>
+            <li>Run the <strong>identity provisioning job</strong> in your BTP instance, then confirm the roles appear in <strong>SAP Build Work Zone</strong>.</li>
+          </ul>
+        </aside>
+
+        <p>You've got a public cloud instance, set up BTP, activated the services — and yet Joule sometimes doesn't provide the answer, or doesn't even respond.</p>
+        <p>How rude! If this is happening to you, work through the steps below to check your roles are set up correctly.</p>
+
+        <h2>Four checks to get Joule talking</h2>
+        <ol class="post-steps">
+          <li>
+            <h3>Test with key navigation</h3>
+            <p>Open Joule and ask it to navigate to a key app. If the Joule instance comes up with the navigation, the connection is working — this is always a good first test.</p>
+          </li>
+          <li>
+            <h3>Open Maintain Business Roles</h3>
+            <p>In S/4HANA Public Cloud, go to the <strong>Maintain Business Roles</strong> app and open the business roles your users are assigned.</p>
+          </li>
+          <li>
+            <h3>Tick "Exposed to BTP"</h3>
+            <p>For each relevant role, make sure <strong>Exposed to BTP</strong> is checked. This is generally <strong>not checked by default</strong> — and without it, Joule can't see what the user is allowed to do.</p>
+          </li>
+          <li>
+            <h3>Run the identity provisioning job</h3>
+            <p>Go to your <strong>SAP BTP</strong> instance and run the identity access (Identity Provisioning) job to update the role details. Then confirm the roles show up in Identity Provisioning and in your <strong>SAP Build Work Zone</strong>.</p>
+          </li>
+        </ol>
+
+        <blockquote class="post-quote">Joule is not being rude — maybe it just doesn't know the role you are playing.</blockquote>
+
+        <div class="post-cta">
+          <p>Aricord Consulting helps teams get SAP S/4HANA Public Cloud, SAP BTP and Joule working together. Stuck on a setup issue? We're happy to help.</p>
+          <div class="post-cta-actions">
+            <a class="btn btn-primary" href="contact.html">Talk to us</a>
+            <a class="insight-link" href="https://www.linkedin.com/pulse/quick-tip-joule-s4hana-public-cloud-aricordconsultinglimited-mbfhe/" target="_blank" rel="noopener">See the original (with screenshots) on LinkedIn ↗</a>
+          </div>
+        </div>
+
+        <p class="post-back"><a class="insight-link" href="news.html">← Back to the News Center</a></p>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a href="index.html" class="wordmark wordmark-footer">
+        <svg class="wordmark-mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+          <circle class="mark-halo" cx="50" cy="50" r="48" />
+          <circle class="mark-fill" cx="50" cy="50" r="47" />
+          <circle class="mark-ring" cx="50" cy="50" r="35" />
+          <path class="mark-chevron" d="M34 60 L50 33 L66 60" />
+        </svg>
+        <span class="wordmark-text">Aricord</span>
+      </a>
+      <p class="footer-tagline">SAP finance &amp; regulatory reporting partner.</p>
+    </div>
+
+    <nav aria-label="Footer">
+      <a href="about.html">About</a>
+      <a href="offerings.html">Offerings</a>
+      <a href="coverage.html">Coverage</a>
+      <a href="accelerators.html">Accelerators</a>
+      <a href="stories.html">Client Stories</a>
+      <a href="news.html">News</a>
+      <a href="careers.html">Careers</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="footer-legal">
+      <p>© <span id="year"></span> Aricord Consulting. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
+

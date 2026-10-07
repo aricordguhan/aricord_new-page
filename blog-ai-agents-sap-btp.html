@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agents on SAP BTP — Aricord Blog</title>
+<meta name="description" content="How Aricord built a project revenue assistant on SAP BTP that turns SAP ECC and BW plan-vs-actual data into conversational, auditable variance insight.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%23FFFFFF%22/><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22%230A2E6B%22/><circle cx=%2250%22 cy=%2250%22 r=%2231%22 fill=%22none%22 stroke=%22%23FFFFFF%22 stroke-width=%225%22/><path d=%22M35 62 L50 32 L65 62%22 fill=%22none%22 stroke=%22%23FFFFFF%22 stroke-width=%228%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="site-header">
+  <div class="wrap header-inner">
+    <a href="index.html" class="wordmark" aria-label="Aricord home">
+      <svg class="wordmark-mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+        <circle class="mark-halo" cx="50" cy="50" r="48" />
+        <circle class="mark-fill" cx="50" cy="50" r="47" />
+        <circle class="mark-ring" cx="50" cy="50" r="35" />
+        <path class="mark-chevron" d="M34 60 L50 33 L66 60" />
+      </svg>
+      <span class="wordmark-text">Aricord</span>
+    </a>
+
+    <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+      <a href="about.html">About</a>
+      <a href="offerings.html">Offerings</a>
+      <a href="coverage.html">Coverage</a>
+      <a href="accelerators.html">Accelerators</a>
+      <a href="stories.html">Client Stories</a>
+      <a href="news.html" class="is-active">News</a>
+      <a href="careers.html">Careers</a>
+      <a href="contact.html" class="nav-cta">Contact</a>
+    </nav>
+
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- BLOG POST HERO -->
+  <section class="news-hero">
+    <div class="wrap">
+      <p class="crumbs"><a href="index.html">Home</a> <span>/</span> <a href="news.html">News</a> <span>/</span> Blog</p>
+      <p class="eyebrow">Blog · SAP BTP &amp; AI</p>
+      <h1>From static reports to conversational insight</h1>
+      <p class="news-hero-sub">Using AI agents on SAP BTP to bridge SAP ECC data with the business user.</p>
+    </div>
+  </section>
+
+  <!-- BLOG POST BODY -->
+  <section class="section">
+    <div class="wrap">
+      <article class="post">
+        <figure class="post-media news-lead-media news-media-1">
+          <img class="news-media-photo" src="assets/news/ai-agentic.jpg" alt="Abstract network of connected nodes, representing AI agents reasoning over SAP data">
+        </figure>
+        <p class="news-byline">Aricord Consulting · 12 August 2026 · 6 min read</p>
+
+        <aside class="post-keypoints" aria-label="Key takeaways">
+          <h2>Key takeaways</h2>
+          <ul>
+            <li>The gap in most SAP ECC / BW estates isn't data — it's fast access to <strong>insight</strong>.</li>
+            <li>Plan-vs-actual variance analysis is one of the best <strong>first use cases</strong> for AI agents in SAP.</li>
+            <li>Data stays in ECC and BW; the agent queries it live — <strong>no shadow data model</strong>.</li>
+            <li>The agent reuses <strong>existing SAP role-based authorizations</strong> — no weaker "AI" permission layer.</li>
+            <li>Every question, query and result is <strong>logged to SAP HANA</strong> for audit and model governance.</li>
+          </ul>
+        </aside>
+
+        <h2>The problem we keep seeing</h2>
+        <p>Most organisations running SAP ECC — or SAP BW alongside it — have no shortage of data. Project revenue, cost, and margin figures are all sitting in the system, refreshed on schedule, ready for reporting. What's missing isn't data. It's access to insight.</p>
+        <p>A business user who wants to know why a project's margin slipped this quarter still has to raise a request to a BW/reporting analyst, wait for a query to be run or a report to be built, and then interpret a spreadsheet full of numbers with no narrative behind them. By the time the answer comes back, the moment for action has often passed. Multiply that across dozens of projects and portfolio managers, and the reporting team becomes a bottleneck rather than an enabler.</p>
+        <p>We think there's a better pattern — and we recently built and delivered exactly this for a client, using SAP Business Technology Platform's AI capabilities on top of an existing SAP ECC and BW landscape.</p>
+
+        <h2>The use case: a project revenue assistant</h2>
+        <p>Rather than build a general-purpose chatbot, we scoped the first agent tightly around a question business users ask constantly:</p>
+        <blockquote class="post-quote">"How does actual project performance compare to plan, and why?"</blockquote>
+        <p>The assistant lets a user ask, in natural language, for revenue, cost, and margin performance for a given project, month, quarter, or year — and returns not just the numbers, but the reason behind the variance: which cost elements moved, which milestones slipped, and how the current position compares to the baseline plan.</p>
+        <p>It turns a request that used to take a reporting analyst <strong>a day</strong> to fulfil into something a project manager can get an answer to <strong>in seconds</strong>, directly from a UI5 application.</p>
+
+        <h2>How we built it on SAP BTP</h2>
+        <p>The architecture keeps the AI layer strictly separated from the system of record, and reuses SAP's own security model end to end rather than inventing a parallel one.</p>
+        <div class="post-layers">
+          <div class="post-layer">
+            <span class="tag tag-dark">Data layer</span>
+            <p>Plan and actual figures stay in <strong>SAP ECC and SAP BW</strong>. BW / HANA queries fetch the data, exposed to the cloud through <strong>SAP Cloud Connector</strong> and the BTP Connectivity and Destination services. The on-premise system remains the single source of truth.</p>
+          </div>
+          <div class="post-layer">
+            <span class="tag tag-dark">AI layer</span>
+            <p>Reasoning sits in <strong>SAP AI Core</strong> within the <strong>Generative AI Hub</strong>, with SAP AI Launchpad for orchestration oversight. Prompts are written and versioned in AI Core's <strong>Prompt Registry</strong>; orchestration handles grounding, templating, and input/output filtering before anything reaches the foundation model.</p>
+          </div>
+          <div class="post-layer">
+            <span class="tag tag-dark">Application layer</span>
+            <p>A <strong>UI5 application</strong>, fronted by <strong>SAP Build Work Zone</strong> and routed through the standard App Router and HTML5 App Repository, gives users a familiar, Fiori-consistent front end — not a bolt-on chat widget.</p>
+          </div>
+          <div class="post-layer">
+            <span class="tag tag-dark">Identity &amp; access</span>
+            <p>Non-negotiable: the agent gets no authorization model of its own. It runs on <strong>SAP Cloud Identity Services</strong> and respects the same role-based authorizations already governing ECC and BW. If a user can't see a project's margin in the source system, the agent won't surface it either.</p>
+          </div>
+          <div class="post-layer">
+            <span class="tag tag-dark">Auditability</span>
+            <p>Every response — the question asked, the query executed, and the result set returned — is written back to <strong>SAP HANA</strong>, giving a persistent, queryable record for validating accuracy and satisfying internal audit and model-governance requirements.</p>
+          </div>
+        </div>
+
+        <h2>Why the architecture matters as much as the model</h2>
+        <p>It would have been faster to point a large language model at an exported CSV and call it done. We deliberately didn't, for three reasons that apply to any SAP-based AI agent project:</p>
+        <ol class="post-list">
+          <li><strong>Trust follows governance, not the model.</strong> Business and finance stakeholders relied on the assistant once they understood that authorization, data residency, and audit trail matched the standards of their existing reports. The LLM is the least trusted part of the chain by default — the surrounding architecture earns that trust back.</li>
+          <li><strong>The source of truth stays the source of truth.</strong> Querying BW directly rather than syncing data into a separate store avoids the classic "which number is right — SAP's or the AI tool's?" problem.</li>
+          <li><strong>Response logging turns a black box into an inspectable system.</strong> Storing the full result set alongside every answer means any variance explanation can be checked against the underlying data — making the assistant auditable, not just plausible.</li>
+        </ol>
+
+        <h2>Where this pattern goes next</h2>
+        <p>Plan-vs-actual variance is a natural entry point because the data model is well understood and the value is immediately felt. But the same architecture — BW/ECC as source of truth, SAP AI Core for orchestration and reasoning, native SAP identity for access control, and HANA for response logging — extends cleanly to other finance and controlling questions:</p>
+        <ul class="post-list">
+          <li>Budget re-forecasting narratives</li>
+          <li>Intercompany reconciliation explanations</li>
+          <li>Asset and cost-centre anomaly detection</li>
+        </ul>
+
+        <blockquote class="post-quote">Don't start by asking which model to use. Start by asking how the agent will authenticate, where the data will actually live, and how every answer will be logged. Get those three right, and the model choice becomes the easy part.</blockquote>
+
+        <div class="post-cta">
+          <p>Aricord Consulting is an SAP partner specialising in SAP finance and SAP BTP development. If you're exploring AI agents on your SAP landscape, we'd be glad to talk through what we learned building this one.</p>
+          <div class="post-cta-actions">
+            <a class="btn btn-primary" href="contact.html">Talk to us</a>
+            <a class="insight-link" href="https://www.linkedin.com/pulse/from-static-reports-conversational-insight-using-vjdoc/" target="_blank" rel="noopener">Read the original on LinkedIn ↗</a>
+          </div>
+        </div>
+
+        <p class="post-back"><a class="insight-link" href="news.html">← Back to the News Center</a></p>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a href="index.html" class="wordmark wordmark-footer">
+        <svg class="wordmark-mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+          <circle class="mark-halo" cx="50" cy="50" r="48" />
+          <circle class="mark-fill" cx="50" cy="50" r="47" />
+          <circle class="mark-ring" cx="50" cy="50" r="35" />
+          <path class="mark-chevron" d="M34 60 L50 33 L66 60" />
+        </svg>
+        <span class="wordmark-text">Aricord</span>
+      </a>
+      <p class="footer-tagline">SAP finance &amp; regulatory reporting partner.</p>
+    </div>
+
+    <nav aria-label="Footer">
+      <a href="about.html">About</a>
+      <a href="offerings.html">Offerings</a>
+      <a href="coverage.html">Coverage</a>
+      <a href="accelerators.html">Accelerators</a>
+      <a href="stories.html">Client Stories</a>
+      <a href="news.html">News</a>
+      <a href="careers.html">Careers</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="footer-legal">
+      <p>© <span id="year"></span> Aricord Consulting. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
+

@@ -201,11 +201,11 @@ document.querySelectorAll('.news-row').forEach((row) => {
   updateArrows();
 });
 
-// Intro: ARICORD tagline typed in once, held, then the overlay fades out to reveal the page
+// Intro: ARICORD types in, then the tagline types centred beneath it; hold, then fade out to reveal the page
 document.addEventListener('DOMContentLoaded', () => {
   const intro = document.getElementById('intro');
   if (!intro) return;
-  const el = intro.querySelector('.arc-type');
+  const lines = Array.from(intro.querySelectorAll('.arc-type'));
   document.body.classList.add('intro-active');
 
   const finish = () => {
@@ -214,21 +214,30 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => intro.remove(), 700);
   };
 
-  if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (!lines.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     setTimeout(finish, 1200);
     return;
   }
 
-  const text = el.dataset.text || el.textContent.trim();
-  let i = 0;
-  el.textContent = '';
+  const cursor = document.createElement('span');
+  cursor.className = 'arc-cursor';
+  const speeds = [130, 55]; // ms per letter: heading, tagline
 
-  const tick = () => {
-    el.textContent = text.slice(0, i);
-    if (i < text.length) { i += 1; setTimeout(tick, 70); }
-    else setTimeout(finish, 1000);
+  const typeLine = (n) => {
+    if (n >= lines.length) { setTimeout(finish, 1000); return; }
+    const el = lines[n];
+    const text = el.dataset.text || '';
+    const out = document.createTextNode('');
+    el.append(out, cursor);
+    let i = 0;
+    const tick = () => {
+      out.textContent = text.slice(0, i);
+      if (i < text.length) { i += 1; setTimeout(tick, speeds[n] || 60); }
+      else setTimeout(() => typeLine(n + 1), 350);
+    };
+    tick();
   };
-  setTimeout(tick, 800);
+  setTimeout(() => typeLine(0), 600);
 });
 
 // Hero pillars visual: type the tagline once the axes have drawn, and light up a pillar on hover
@@ -398,3 +407,33 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.4 });
   io.observe(row);
 })();
+
+// Hero eyebrow: "SAP FINANCE ·" stays fixed, the phrases after it type, pause, delete and cycle
+document.addEventListener('DOMContentLoaded', () => {
+  const typed = document.querySelector('.eyebrow-typed');
+  if (!typed || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const phrases = (typed.dataset.phrases || '').split('|').filter(Boolean);
+  if (!phrases.length) return;
+
+  let p = 0;
+  let i = 0;
+  let deleting = false;
+  typed.textContent = '';
+
+  const tick = () => {
+    const text = phrases[p];
+    if (!deleting) {
+      i += 1;
+      typed.textContent = text.slice(0, i);
+      if (i === text.length) { deleting = true; setTimeout(tick, 1800); return; }
+      setTimeout(tick, 80);
+    } else {
+      i -= 1;
+      typed.textContent = text.slice(0, i);
+      if (i === 0) { deleting = false; p = (p + 1) % phrases.length; setTimeout(tick, 400); return; }
+      setTimeout(tick, 40);
+    }
+  };
+  // Start once the intro overlay has cleared (if present)
+  setTimeout(tick, document.getElementById('intro') ? 5800 : 400);
+});

@@ -127,6 +127,8 @@ p:last-child { margin-bottom: 0; }
   font-family: var(--font-mono); font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--brass); font-weight: 600; margin: 0 0 18px;
 }
+.eyebrow-cursor { display: inline-block; width: 2px; height: 1.05em; background: currentColor; margin-left: 3px; vertical-align: -0.15em; animation: arcBlink .8s steps(1) infinite; }
+@media (prefers-reduced-motion: reduce) { .eyebrow-cursor { display: none; } }
 .hero h1 { font-size: clamp(2.1rem, 4vw, 3.2rem); color: var(--white); margin-bottom: 22px; }
 .hero-sub { color: #B9C2D6; font-size: 17px; max-width: 46ch; margin-bottom: 34px; }
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
@@ -219,19 +221,20 @@ body.intro-active .pillars * { animation-play-state: paused; }
 .intro.is-done { opacity: 0; visibility: hidden; }
 body.intro-active { overflow: hidden; }
 @keyframes introFailsafe { to { opacity: 0; visibility: hidden; } }
-/* Wordmark size lives on .arc-inner so the tagline can be a fixed ratio (~42%) of it */
-.arc-inner { display: inline-block; font-family: 'Manrope', var(--font-display); font-size: clamp(48px, 8vw, 104px); }
-.arc-title {
-  margin: 0; color: #fff; font-weight: 600; font-size: 1em; letter-spacing: .12em; margin-right: -.12em; line-height: 1;
-  opacity: 0; animation: arcFade 1s ease forwards;
-}
-.arc-tagline { margin: .2em 0 0; color: #DCE7F7; font-weight: 400; font-size: .42em; letter-spacing: 0; white-space: nowrap; min-height: 1.3em; }
+/* Each line reserves its full width with an invisible copy, so typing never shifts the layout */
+.arc-inner { text-align: center; font-family: 'Manrope', var(--font-display); }
+.arc-line { position: relative; display: inline-block; white-space: nowrap; }
+.arc-ghost { visibility: hidden; }
+.arc-type { position: absolute; left: 0; top: 0; white-space: nowrap; }
+.arc-title { margin: 0; color: #fff; font-weight: 600; font-size: clamp(42px, 7vw, 88px); letter-spacing: .12em; line-height: 1.1; }
+.arc-title .arc-line { margin-right: -.12em; }
+.arc-tagline { margin: .55em 0 0; color: #DCE7F7; font-weight: 400; font-size: clamp(16px, 2.4vw, 28px); letter-spacing: .01em; }
 .arc-cursor { display: inline-block; width: 2px; height: 1em; background: #9CC4FF; margin-left: 4px; vertical-align: -0.12em; animation: arcBlink .8s steps(1) infinite; }
-@keyframes arcFade { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: none; } }
+.arc-title .arc-cursor { width: 3px; margin-left: 0; }
 @keyframes arcBlink { 50% { opacity: 0; } }
-@media (max-width: 768px) { .arc-tagline { white-space: normal; } }
 @media (prefers-reduced-motion: reduce) {
-  .arc-title { animation: none; opacity: 1; }
+  .arc-ghost { visibility: visible; }
+  .arc-type { display: none; }
   .arc-cursor { display: none; }
 }
 
@@ -754,6 +757,19 @@ a.news-card { display: block; color: inherit; text-decoration: none; cursor: poi
 
 /* Careers */
 .careers-grid { display: grid; grid-template-columns: 1.4fr auto; gap: 30px; align-items: center; }
+/* Careers page banner: light panel, eyebrow with trailing rule, CTA on the right */
+.careers-banner { display: flex; align-items: center; justify-content: space-between; gap: 32px 48px; background: var(--paper-alt); border: 1px solid var(--line); border-radius: 18px; padding: 48px clamp(24px, 6vw, 88px); }
+.careers-banner-copy { max-width: 640px; }
+.careers-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+.careers-eyebrow::after { content: ""; width: 48px; height: 1px; background: currentColor; opacity: 0.4; }
+.careers-banner h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 0 0 12px; }
+.careers-banner p:not(.eyebrow) { margin: 0; color: var(--slate); font-size: 16px; line-height: 1.6; max-width: 54ch; }
+.careers-banner-btn { flex: none; gap: 10px; padding: 15px 30px; }
+.careers-banner-btn span { transition: transform 0.18s ease; }
+.careers-banner-btn:hover span { transform: translateX(3px); }
+@media (max-width: 760px) {
+  .careers-banner { flex-direction: column; align-items: flex-start; padding: 32px 22px; }
+}
 
 /* Contact */
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }

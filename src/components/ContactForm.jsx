@@ -1,13 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 // Posts to our Node/Nodemailer API (server.js); SMTP secrets stay server-side in .env
 const CONTACT_API = '/api/contact';
 const CONTACT_INBOX = 'hello@aricord.com';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const TOAST_MS = 5000;
 
 export default function ContactForm() {
   const [note, setNote] = useState('');
   const [sending, setSending] = useState(false);
+  const [toast, setToast] = useState(null); // { type: 'sending' | 'success' | 'error', text }
+  const toastTimer = useRef();
+
+  const showToast = (type, text) => {
+    clearTimeout(toastTimer.current);
+    setToast({ type, text });
+    // Sending stays up until the request settles; results auto-dismiss
+    if (type !== 'sending') toastTimer.current = setTimeout(() => setToast(null), TOAST_MS);
+  };
+
+  useEffect(() => () => clearTimeout(toastTimer.current), []);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -28,6 +40,7 @@ export default function ContactForm() {
 
     setSending(true);
     setNote('Sending…');
+    showToast('sending', 'Sending your message…');
 
     try {
       const res = await fetch(CONTACT_API, {
@@ -44,8 +57,11 @@ export default function ContactForm() {
 
       form.reset();
       setNote("Thanks — your message has been sent. We'll be in touch shortly.");
+      showToast('success', 'Message submitted successfully.');
     } catch (err) {
-      setNote(err.userMessage || `Sorry, we couldn't send your message. Please email us at ${CONTACT_INBOX}.`);
+      const msg = err.userMessage || `Sorry, we couldn't send your message. Please email us at ${CONTACT_INBOX}.`;
+      setNote(msg);
+      showToast('error', msg);
     } finally {
       setSending(false);
     }
@@ -76,11 +92,26 @@ export default function ContactForm() {
         <textarea name="message" id="cf-message" rows={4} required />
       </label>
       <button type="submit" className="btn btn-primary" disabled={sending}>
-        Send message
+        {sending ? 'Sending…' : 'Send message'}
       </button>
       <p className="form-note" id="cf-note" role="status">
         {note}
       </p>
+      {toast && (
+        <div className={`toast toast-${toast.type}`} role={toast.type === 'error' ? 'alert' : 'status'}>
+          {toast.type === 'sending' ? (
+            <span className="toast-spinner" aria-hidden="true" />
+          ) : (
+            <span className="toast-icon" aria-hidden="true">{toast.type === 'success' ? '✓' : '!'}</span>
+          )}
+          <span className="toast-text">{toast.text}</span>
+          {toast.type !== 'sending' && (
+            <button type="button" className="toast-close" aria-label="Dismiss" onClick={() => setToast(null)}>
+              ×
+            </button>
+          )}
+        </div>
+      )}
     </form>
   );
 }

@@ -12,7 +12,7 @@ function escapeHtml(value = '') {
     .replace(/'/g, '&#39;');
 }
 
-export function buildContactEmail({ name, email, message }) {
+function buildContactEmail({ name, email, message }) {
   const safeName = escapeHtml(name);
   const safeEmail = escapeHtml(email);
   const safeMessage = escapeHtml(message).replace(/\r?\n/g, '<br>');
@@ -129,3 +129,5 @@ export function buildContactEmail({ name, email, message }) {
 
   return { subject, html, text };
 }
+
+module.exports = { buildContactEmail };

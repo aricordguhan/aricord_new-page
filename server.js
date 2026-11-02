@@ -3,6 +3,7 @@ require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const nodemailer = require('nodemailer');
+const { buildContactEmail } = require('./emailTemplate');
 
 const {
   PORT = 3000,
@@ -132,10 +133,6 @@ setInterval(() => {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function escapeHtml(str) {
-  return str.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-}
-
 app.post('/api/contact', async (req, res) => {
   const { name = '', email = '', message = '', website = '' } = req.body || {};
 
@@ -160,19 +157,15 @@ app.post('/api/contact', async (req, res) => {
   }
 
   try {
+    const { subject, html, text } = buildContactEmail({ name: cleanName, email: cleanEmail, message: cleanMessage });
     const transporter = await createTransporter();
     await transporter.sendMail({
       from: `"Aricord Website" <${SMTP_USER}>`,
       to: CONTACT_TO,
       replyTo: `"${cleanName.replace(/"/g, '')}" <${cleanEmail}>`,
-      subject: `Website enquiry from ${cleanName}`,
-      text: `Name: ${cleanName}\nEmail: ${cleanEmail}\n\n${cleanMessage}`,
-      html: `
-        <p><strong>Name:</strong> ${escapeHtml(cleanName)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(cleanEmail)}</p>
-        <p><strong>Message:</strong></p>
-        <p style="white-space:pre-wrap">${escapeHtml(cleanMessage)}</p>
-      `,
+      subject,
+      text,
+      html,
     });
     res.json({ success: true });
   } catch (err) {

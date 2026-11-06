@@ -40,7 +40,7 @@ export default function Contact() {
                     </svg>{' '}
                     +44 (0) 7774 754095{' '}
                   </a>{' '}
-                  <a href="mailto:rishab@aricord.com" aria-label="Email Rishab Bucha">
+                  <a href="mailto:Rishab.Bucha@aricord.com" aria-label="Email Rishab Bucha">
                     <svg
                       viewBox="0 0 24 24"
                       fill="none"
@@ -53,7 +53,7 @@ export default function Contact() {
                       <rect x="2" y="4" width="20" height="16" rx="2" />
                       <path d="m22 7-10 6L2 7" />
                     </svg>{' '}
-                    rishab@aricord.com{' '}
+                    Rishab.Bucha@aricord.com{' '}
                   </a>
                 </div>
               </div>
